@@ -12,30 +12,27 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName video_views
+ * @TableName admins
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class VideoViews implements Serializable {
+public class Admins implements Serializable {
     @TableId
-    private Integer view_id;
+    private Integer admin_id;
 
-    /**
-     * 
-     */
-    private Integer video_id;
+    private String username;
 
-    /**
-     * 
-     */
-    private Integer user_id;
+    private String email;
 
-    /**
-     * 
-     */
-    private LocalDateTime watched_at;
+    private String hashed_password;
+
+    private String role;
+
+    private LocalDateTime created_at;
+
+    private LocalDateTime updated_at;
 
     @Serial
     private static final long serialVersionUID = 1L;

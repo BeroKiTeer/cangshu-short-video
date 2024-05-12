@@ -1,3 +1,22 @@
 spring:
   application:
     name: ShortVideo
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: ${cn.edu.ujn.datasource.driver-class-name}
+    url: jdbc:mysql://${cn.edu.ujn.datasource.host}:${cn.edu.ujn.datasource.port}/${cn.edu.ujn.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${cn.edu.ujn.datasource.username}
+    password: ${cn.edu.ujn.datasource.password}
+
+cn:
+  edu:
+    ujn:
+      jwt:
+        admin-secret-key: cangshu
+        admin-ttl: 7200000
+        # 前端传递过来的令牌名称
+        admin-token-name: token
+        user-secret-key: jintsangshu
+        user-ttl: 7200000
+        user-token-name: authentication

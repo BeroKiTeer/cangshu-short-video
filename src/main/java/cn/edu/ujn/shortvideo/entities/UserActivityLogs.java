@@ -1,6 +1,11 @@
 package cn.edu.ujn.shortvideo.entities;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -9,10 +14,11 @@ import java.time.LocalDateTime;
  * @TableName user_activity_logs
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserActivityLogs implements Serializable {
-    /**
-     * 
-     */
+    @TableId
     private Integer log_id;
 
     /**
