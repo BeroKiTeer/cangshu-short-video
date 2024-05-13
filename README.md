@@ -1,3 +1,50 @@
+## TODOLIST
+
+### **用户管理**
+
+- [ ] 用户注册和登录：允许用户通过邮箱和密码注册账户，并进行登录。
+  - [ ] 用户注册
+  - [ ] 用户登录
+
+- [ ] 用户资料管理：用户可以更新个人资料，如用户名、简介、头像等。
+- [ ] 密码重置：用户可以通过邮箱重置密码。
+- [x] 获取用户信息
+
+### **视频管理**
+
+- [ ] 视频上传：用户可以上传视频内容，包括标题、描述、视频文件。
+- [ ] 视频浏览：用户可以浏览其他用户上传的视频。
+- [ ] 视频编辑：视频上传者可以编辑或删除自己的视频。
+  - [ ] 删除视频
+  - [ ] 更新视频
+
+
+### **社交互动**
+
+- [ ] 评论功能：用户可以对视频进行评论。
+  - [ ] 发表评论
+  - [ ] 删除评论
+
+- [ ] 点赞功能：用户可以对视频进行点赞。
+  - [ ] 点赞
+  - [ ] 取消点赞
+
+- [ ] 关注功能：用户可以关注其他用户，以便获得关注用户的视频更新通知。
+  - [ ] 关注用户
+  - [ ] 取关用户
+
+
+### **搜索与发现**
+
+- [ ] 标签和分类：视频可以被标记为特定的标签或分类。（分页查询）
+- [ ] 搜索功能：用户可以通过标题、描述、标签搜索视频。
+
+### **管理员功能**
+
+- [ ] 内容管理：管理员可以删除违规视频或评论。
+- [ ] 用户管理：管理员可以管理用户账户，如禁用违规账户。
+- [ ] 数据分析：管理员可以访问平台使用数据，如用户增长、视频观看统计等。
+
 ## 数据库
 
 ### 1. 用户表 (`users`)
@@ -185,6 +232,29 @@
 | ip_address    | VARCHAR(50)  | 用户活动时的IP地址                               |
 | device_info   | VARCHAR(255) | 用户使用的设备信息                               |
 | created_at    | DATETIME     | 活动记录时间                                     |
+
+### 15.管理员表 (`admins`)
+
+这个表用于存储平台管理员的信息，包括登录认证和角色权限管理。
+
+| 字段名          | 数据类型     | 描述                                       |
+| --------------- | ------------ | ------------------------------------------ |
+| admin_id        | INT          | 管理员ID，主键，自增                       |
+| username        | VARCHAR(255) | 管理员用户名，唯一                         |
+| email           | VARCHAR(255) | 管理员的电子邮箱，唯一                     |
+| hashed_password | VARCHAR(255) | 加密后的密码                               |
+| role            | VARCHAR(50)  | 管理员角色（如 "superadmin", "moderator"） |
+| created_at      | DATETIME     | 账号创建时间                               |
+| updated_at      | DATETIME     | 账号最后更新时间                           |
+
+### 16.管理员操作日志表 (`admin_logs`)
+
+| 字段名    | 数据类型     | 描述                 |
+| --------- | ------------ | -------------------- |
+| log_id    | INT          | 日志ID，主键，自增   |
+| admin_id  | INT          | 参照`admins`表的外键 |
+| action    | VARCHAR(255) | 执行的操作描述       |
+| timestamp | DATETIME     | 操作发生的时间       |
 
 ## 接口信息
 
@@ -577,5 +647,284 @@
   {
     "success": "boolean",
     "message": "Unfollowed successfully"
+  }
+  ```
+
+### 广告管理
+
+**15. 获取广告列表**
+
+- **Method:** GET
+
+- **URL:** `/api/ads`
+
+- Response:
+
+  ```json
+  {
+    "ads": [
+      {
+        "ad_id": "int",
+        "title": "string",
+        "description": "string",
+        "url": "string",
+        "image_url": "string",
+        "start_date": "datetime",
+        "end_date": "datetime"
+      }
+    ]
+  }
+  ```
+
+**16. 获取广告详情**
+
+- **Method:** GET
+
+- **URL:** `/api/ads/{adId}`
+
+- Response:
+
+  ```json
+  {
+    "ad_id": "int",
+    "title": "string",
+    "description": "string",
+    "url": "string",
+    "image_url": "string",
+    "start_date": "datetime",
+    "end_date": "datetime"
+  }
+  ```
+
+**17. 创建广告**
+
+- **Method:** POST
+
+- **URL:** `/api/ads`
+
+- Headers:
+
+  ```makefile
+  Authorization: Bearer Token
+  ```
+
+- Body:
+
+  ```json
+  {
+    "title": "string",
+    "description": "string",
+    "url": "string",
+    "image_url": "string",
+    "start_date": "datetime",
+    "end_date": "datetime"
+  }
+  ```
+
+- Response:
+
+  ```json
+  {
+    "ad_id": "int",
+    "message": "Ad created successfully"
+  }
+  ```
+
+**18. 更新广告**
+
+- **Method:** PUT
+
+- **URL:** `/api/ads/{adId}`
+
+- Headers:
+
+  ```
+  Authorization: Bearer Token
+  ```
+
+- Body:
+
+  ```json
+  {
+    "title": "string",
+    "description": "string",
+    "url": "string",
+    "image_url": "string",
+    "start_date": "datetime",
+    "end_date": "datetime"
+  }
+  ```
+
+- Response:
+
+  ```json
+  {
+    "message": "Ad updated successfully"
+  }
+  ```
+
+**19. 删除广告**
+
+- **Method:** DELETE
+
+- **URL:** `/api/ads/{adId}`
+
+- Headers:
+
+  ```makefile
+  Authorization: Bearer Token
+  ```
+
+- Response:
+
+  ```json
+  {
+    "message": "Ad deleted successfully"
+  }
+  ```
+
+### 用户设置
+
+**20. 获取用户设置**
+
+- **Method:** GET
+
+- **URL:** `/api/users/{userId}/settings`
+
+- Headers:
+
+  ```makefile
+  Authorization: Bearer Token
+  ```
+
+- Response:
+
+  ```json
+  {
+    "privacy": "string",
+    "notifications": "boolean",
+    "theme": "string",
+    "language": "string"
+  }
+  ```
+
+**21. 更新用户设置**
+
+- **Method:** PUT
+
+- **URL:** `/api/users/{userId}/settings`
+
+- Headers:
+
+  ```makefile
+  Authorization: Bearer Token
+  ```
+
+- Body:
+
+  ```json
+  {
+    "privacy": "string",
+    "notifications": "boolean",
+    "theme": "string",
+    "language": "string"
+  }
+  ```
+
+- Response:
+
+  ```json
+  {
+    "message": "Settings updated successfully"
+  }
+  ```
+
+### 内容审核
+
+**22. 获取待审核内容**
+
+- **Method:** GET
+
+- **URL:** `/api/reviews/pending`
+
+- Headers:
+
+  ```makefile
+  Authorization: Bearer Token
+  ```
+
+- Response:
+
+  ```json
+  {
+    "reviews": [
+      {
+        "review_id": "int",
+        "video_id": "int",
+        "status": "string",
+        "reviewer_id": "int",
+        "notes": "string",
+        "reviewed_at": "datetime"
+      }
+    ]
+  }
+  ```
+
+**23. 审核内容**
+
+- **Method:** POST
+
+- **URL:** `/api/reviews/{reviewId}/approve`
+
+- Headers:
+
+  ```makefile
+  Authorization: Bearer Token
+  ```
+
+- Body:
+
+  ```json
+  {
+    "status": "string",
+    "notes": "string"
+  }
+  ```
+
+- Response:
+
+  ```json
+  {
+    "message": "Review processed successfully"
+  }
+  ```
+
+### 用户活动日志
+
+**24. 获取用户活动日志**
+
+- **Method:** GET
+
+- **URL:** `/api/users/{userId}/activity_logs`
+
+- Headers:
+
+  ```makefile
+  Authorization: Bearer Token
+  ```
+
+- Response:
+
+  ```json
+  {
+    "logs": [
+      {
+        "log_id": "int",
+        "activity_type": "string",
+        "ip_address": "string",
+        "device_info": "string",
+        "created_at": "datetime"
+      }
+    ]
   }
   ```
