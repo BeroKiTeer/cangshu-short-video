@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan(basePackages = "cn.edu.ujn.shortvideo.mapper")
 public class ShortVideoApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(ShortVideoApplication.class, args);
     }
