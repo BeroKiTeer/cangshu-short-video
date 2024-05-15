@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Builder
 public class Ads implements Serializable {
     @TableId
-    private Integer ad_id;
+    private Integer adId;
 
     /**
      * 
@@ -40,27 +40,27 @@ public class Ads implements Serializable {
     /**
      * 
      */
-    private String image_url;
+    private String imageUrl;
 
     /**
      * 
      */
-    private LocalDateTime start_date;
+    private LocalDateTime startDate;
 
     /**
      * 
      */
-    private LocalDateTime end_date;
+    private LocalDateTime endDate;
 
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     /**
      * 
      */
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

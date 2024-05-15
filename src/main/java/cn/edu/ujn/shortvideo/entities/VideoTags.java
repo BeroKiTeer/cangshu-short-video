@@ -25,17 +25,17 @@ public class VideoTags implements Serializable {
     /**
      * 
      */
-    private Integer video_id;
+    private Integer videoId;
 
     /**
      * 
      */
-    private Integer tag_id;
+    private Integer tagId;
 
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

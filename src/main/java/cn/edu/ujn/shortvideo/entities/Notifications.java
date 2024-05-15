@@ -19,12 +19,12 @@ import java.time.LocalDateTime;
 @Builder
 public class Notifications implements Serializable {
     @TableId
-    private Integer notification_id;
+    private Integer notificationId;
 
     /**
      * 
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 
@@ -34,7 +34,7 @@ public class Notifications implements Serializable {
     /**
      * 
      */
-    private Integer reference_id;
+    private Integer referenceId;
 
     /**
      * 
@@ -44,7 +44,7 @@ public class Notifications implements Serializable {
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     private static final long serialVersionUID = 1L;
 }

@@ -20,12 +20,12 @@ import java.time.LocalDateTime;
 @Builder
 public class Videos implements Serializable {
     @TableId
-    private Integer video_id;
+    private Integer videoId;
 
     /**
      * 
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 
@@ -40,12 +40,12 @@ public class Videos implements Serializable {
     /**
      * 
      */
-    private String video_url;
+    private String videoUrl;
 
     /**
      * 
      */
-    private String thumbnail_url;
+    private String thumbnailUrl;
 
     /**
      * 
@@ -65,12 +65,12 @@ public class Videos implements Serializable {
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     /**
      * 
      */
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

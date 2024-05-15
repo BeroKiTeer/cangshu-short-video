@@ -20,22 +20,22 @@ import java.time.LocalDateTime;
 @Builder
 public class VideoViews implements Serializable {
     @TableId
-    private Integer view_id;
+    private Integer viewId;
 
     /**
      * 
      */
-    private Integer video_id;
+    private Integer videoId;
 
     /**
      * 
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 
      */
-    private LocalDateTime watched_at;
+    private LocalDateTime watchedAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

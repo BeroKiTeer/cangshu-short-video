@@ -20,22 +20,22 @@ import java.time.LocalDateTime;
 @Builder
 public class Follows implements Serializable {
     @TableId
-    private Integer follow_id;
+    private Integer followId;
 
     /**
      * 
      */
-    private Integer follower_id;
+    private Integer followerId;
 
     /**
      * 
      */
-    private Integer followed_id;
+    private Integer followedId;
 
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

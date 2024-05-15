@@ -19,32 +19,32 @@ import java.time.LocalDateTime;
 @Builder
 public class UserActivityLogs implements Serializable {
     @TableId
-    private Integer log_id;
+    private Integer logId;
 
     /**
      * 
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 
      */
-    private String activity_type;
+    private String activityType;
 
     /**
      * 
      */
-    private String ip_address;
+    private String ipAddress;
 
     /**
      * 
      */
-    private String device_info;
+    private String deviceInfo;
 
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     private static final long serialVersionUID = 1L;
 }

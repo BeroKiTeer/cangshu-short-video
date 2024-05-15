@@ -19,12 +19,12 @@ import java.time.LocalDateTime;
 @Builder
 public class UserSettings implements Serializable {
     @TableId
-    private Integer setting_id;
+    private Integer settingId;
 
     /**
      * 
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 
@@ -49,12 +49,12 @@ public class UserSettings implements Serializable {
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     /**
      * 
      */
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     private static final long serialVersionUID = 1L;
 }

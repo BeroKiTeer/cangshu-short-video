@@ -20,22 +20,22 @@ import java.time.LocalDateTime;
 @Builder
 public class Likes implements Serializable {
     @TableId
-    private Integer like_id;
+    private Integer likeId;
 
     /**
      * 
      */
-    private Integer video_id;
+    private Integer videoId;
 
     /**
      * 
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

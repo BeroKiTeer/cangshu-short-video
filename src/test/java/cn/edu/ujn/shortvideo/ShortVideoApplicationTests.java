@@ -8,6 +8,7 @@ class ShortVideoApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

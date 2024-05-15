@@ -20,17 +20,17 @@ import java.time.LocalDateTime;
 @Builder
 public class Reports implements Serializable {
     @TableId
-    private Integer report_id;
+    private Integer reportId;
 
     /**
      * 
      */
-    private Integer video_id;
+    private Integer videoId;
 
     /**
      * 
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 
@@ -45,7 +45,7 @@ public class Reports implements Serializable {
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

@@ -20,17 +20,17 @@ import java.time.LocalDateTime;
 @Builder
 public class Comments implements Serializable {
     @TableId
-    private Integer comment_id;
+    private Integer commentId;
 
     /**
      * 
      */
-    private Integer video_id;
+    private Integer videoId;
 
     /**
      * 
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 
@@ -45,7 +45,7 @@ public class Comments implements Serializable {
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Serial
     private static final long serialVersionUID = 1L;
