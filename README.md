@@ -4,7 +4,7 @@
 
 - [ ] 用户注册和登录：允许用户通过邮箱和密码注册账户，并进行登录。
   - [ ] 用户注册
-  - [ ] 用户登录
+  - [x] 用户登录
 
 - [ ] 用户资料管理：用户可以更新个人资料，如用户名、简介、头像等。
 - [ ] 密码重置：用户可以通过邮箱重置密码。
@@ -45,6 +45,20 @@
 - [ ] 用户管理：管理员可以管理用户账户，如禁用违规账户。
 - [ ] 数据分析：管理员可以访问平台使用数据，如用户增长、视频观看统计等。
 
+## git分支
+
+### **功能（feature）分支**
+
++ 用于开发新功能的分支，通常以 `feature/` 前缀开头，后接功能描述。例如：`feature/add-login`, `feature/user-profile-enhancement`。
+
+### **修复（bugfix）分支**
+
++ 用于修复bug的分支，可以使用 `bugfix/` 或 `fix/` 前缀。例如：`bugfix/login-error`, `fix/issue-123`。
+
+### **发布（release）分支**
+
++ 用于准备发布版本的分支，通常使用 `release/` 前缀，后接版本号。例如：`release/1.0.0`, `release/1.1.0`。
+
 ## 数据库
 
 ### 1. 用户表 (`users`)
@@ -55,6 +69,7 @@
 | ----------------- | ------------------ | ------------------------------------ |
 | user_id           | INT AUTO_INCREMENT | 用户ID，主键，自增                   |
 | username          | VARCHAR(255)       | 用户名，唯一                         |
+| sex               | INT                | 性别(0：女，1：男)                   |
 | email             | VARCHAR(255)       | 邮箱地址，唯一                       |
 | hashed_password   | VARCHAR(255)       | 加密后的密码                         |
 | bio               | TEXT               | 用户简介                             |
@@ -233,28 +248,15 @@
 | device_info   | VARCHAR(255) | 用户使用的设备信息                               |
 | created_at    | DATETIME     | 活动记录时间                                     |
 
-### 15.管理员表 (`admins`)
 
-这个表用于存储平台管理员的信息，包括登录认证和角色权限管理。
+### 15.管理员操作日志表 (`admin_logs`)
 
-| 字段名          | 数据类型     | 描述                                       |
-| --------------- | ------------ | ------------------------------------------ |
-| admin_id        | INT          | 管理员ID，主键，自增                       |
-| username        | VARCHAR(255) | 管理员用户名，唯一                         |
-| email           | VARCHAR(255) | 管理员的电子邮箱，唯一                     |
-| hashed_password | VARCHAR(255) | 加密后的密码                               |
-| role            | VARCHAR(50)  | 管理员角色（如 "superadmin", "moderator"） |
-| created_at      | DATETIME     | 账号创建时间                               |
-| updated_at      | DATETIME     | 账号最后更新时间                           |
-
-### 16.管理员操作日志表 (`admin_logs`)
-
-| 字段名    | 数据类型     | 描述                 |
-| --------- | ------------ | -------------------- |
-| log_id    | INT          | 日志ID，主键，自增   |
-| admin_id  | INT          | 参照`admins`表的外键 |
-| action    | VARCHAR(255) | 执行的操作描述       |
-| timestamp | DATETIME     | 操作发生的时间       |
+| 字段名    | 数据类型     | 描述               |
+| --------- | ------------ | ------------------ |
+| log_id    | INT          | 日志ID，主键，自增 |
+| user_id   | INT          | 参照`user`表的外键 |
+| action    | VARCHAR(255) | 执行的操作描述     |
+| timestamp | DATETIME     | 操作发生的时间     |
 
 ## 接口信息
 
@@ -354,6 +356,7 @@
   {
     "email": "string",
     "username": "string",
+    "sex": "int",
     "bio": "string",
     "profile_image_url": "string"
   }

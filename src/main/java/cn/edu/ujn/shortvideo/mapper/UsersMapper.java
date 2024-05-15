@@ -2,6 +2,8 @@ package cn.edu.ujn.shortvideo.mapper;
 
 import cn.edu.ujn.shortvideo.entities.Users;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+
 /**
 * @author dell
 * @description 针对表【users】的数据库操作Mapper
@@ -10,6 +12,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface UsersMapper extends BaseMapper<Users> {
 
+    @Select("select * from users where username = #{username}")
+    Users selectByUsername(String username);
 }
 
 

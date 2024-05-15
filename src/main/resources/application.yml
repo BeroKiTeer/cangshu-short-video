@@ -8,6 +8,11 @@ spring:
     url: jdbc:mysql://${cn.edu.ujn.datasource.host}:${cn.edu.ujn.datasource.port}/${cn.edu.ujn.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: ${cn.edu.ujn.datasource.username}
     password: ${cn.edu.ujn.datasource.password}
+  redis:
+    host: ${cn.edu.ujn.redis.host}
+    port: ${cn.edu.ujn.redis.port}
+    password: ${cn.edu.ujn.redis.password}
+    database: ${cn.edu.ujn.redis.database}
 
 cn:
   edu:

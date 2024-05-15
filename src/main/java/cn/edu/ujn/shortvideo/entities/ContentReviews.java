@@ -20,12 +20,12 @@ import java.time.LocalDateTime;
 @Builder
 public class ContentReviews implements Serializable {
     @TableId
-    private Integer review_id;
+    private Integer reviewId;
 
     /**
      * 
      */
-    private Integer video_id;
+    private Integer videoId;
 
     /**
      * 
@@ -35,7 +35,7 @@ public class ContentReviews implements Serializable {
     /**
      * 
      */
-    private Integer reviewer_id;
+    private Integer reviewerId;
 
     /**
      * 
@@ -45,7 +45,7 @@ public class ContentReviews implements Serializable {
     /**
      * 
      */
-    private LocalDateTime reviewed_at;
+    private LocalDateTime reviewedAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

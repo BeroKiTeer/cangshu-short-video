@@ -1,4 +1,4 @@
-package cn.edu.ujn.shortvideo.entities;
+package cn.edu.ujn.shortvideo.entities.dto;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
@@ -12,22 +12,20 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName admin_logs
+ * @TableName users
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AdminLogs implements Serializable {
-    @TableId
-    private Integer log_id;
+public class UsersLoginDTO implements Serializable {
+    private Integer userId;
 
-    private Integer admin_id;
+    private String username;
 
-    private String action;
+    private String email;
 
-    private LocalDateTime timestamp;
+    private String hashedPassword;
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    private String role;
 }

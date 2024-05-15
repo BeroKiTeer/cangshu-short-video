@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Builder
 public class Tags implements Serializable {
     @TableId
-    private Integer tag_id;
+    private Integer tagId;
 
     /**
      * 
@@ -35,7 +35,7 @@ public class Tags implements Serializable {
     /**
      * 
      */
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Serial
     private static final long serialVersionUID = 1L;
