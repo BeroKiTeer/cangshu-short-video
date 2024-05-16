@@ -4,7 +4,7 @@ import cn.edu.ujn.shortvideo.common.constant.MessageConstant;
 import cn.edu.ujn.shortvideo.common.properties.JwtProperties;
 import cn.edu.ujn.shortvideo.common.result.ApiResponse;
 import cn.edu.ujn.shortvideo.common.utils.JwtUtil;
-import cn.edu.ujn.shortvideo.entities.Users;
+import cn.edu.ujn.shortvideo.entities.dox.Users;
 import cn.edu.ujn.shortvideo.entities.dto.UsersLoginDTO;
 import cn.edu.ujn.shortvideo.entities.vo.UsersLoginVO;
 import cn.edu.ujn.shortvideo.service.UserService;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * 用户管理

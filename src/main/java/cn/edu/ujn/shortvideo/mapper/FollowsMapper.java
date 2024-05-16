@@ -1,6 +1,6 @@
 package cn.edu.ujn.shortvideo.mapper;
 
-import cn.edu.ujn.shortvideo.entities.Follows;
+import cn.edu.ujn.shortvideo.entities.dox.Follows;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

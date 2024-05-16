@@ -1,4 +1,4 @@
-package cn.edu.ujn.shortvideo.entities;
+package cn.edu.ujn.shortvideo.entities.dox;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
@@ -12,15 +12,15 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName video_tags
+ * @TableName likes
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class VideoTags implements Serializable {
+public class Likes implements Serializable {
     @TableId
-    private Integer id;
+    private Integer likeId;
 
     /**
      * 
@@ -30,7 +30,7 @@ public class VideoTags implements Serializable {
     /**
      * 
      */
-    private Integer tagId;
+    private Integer userId;
 
     /**
      * 

@@ -1,4 +1,4 @@
-package cn.edu.ujn.shortvideo.entities;
+package cn.edu.ujn.shortvideo.entities.dox;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
@@ -6,42 +6,45 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName users
+ * @TableName notifications
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Users implements Serializable {
+public class Notifications implements Serializable {
     @TableId
+    private Integer notificationId;
+
+    /**
+     * 
+     */
     private Integer userId;
 
-    private String username;
+    /**
+     * 
+     */
+    private String type;
 
-    private String email;
+    /**
+     * 
+     */
+    private Integer referenceId;
 
-    private Integer sex;
+    /**
+     * 
+     */
+    private Integer read;
 
-    private String hashedPassword;
-
-    private String bio;
-
-    private String profileImageUrl;
-
-    private Integer status;
-
-    private String role;
-
+    /**
+     * 
+     */
     private LocalDateTime createdAt;
 
-    private LocalDateTime updatedAt;
-
-    @Serial
     private static final long serialVersionUID = 1L;
 }

@@ -4,7 +4,7 @@ import cn.edu.ujn.shortvideo.common.constant.MessageConstant;
 import cn.edu.ujn.shortvideo.common.constant.StatusConstant;
 import cn.edu.ujn.shortvideo.common.exception.AccountNotFoundException;
 import cn.edu.ujn.shortvideo.common.exception.PasswordErrorException;
-import cn.edu.ujn.shortvideo.entities.Users;
+import cn.edu.ujn.shortvideo.entities.dox.Users;
 import cn.edu.ujn.shortvideo.entities.dto.UsersLoginDTO;
 import cn.edu.ujn.shortvideo.mapper.UsersMapper;
 import cn.edu.ujn.shortvideo.service.UserService;

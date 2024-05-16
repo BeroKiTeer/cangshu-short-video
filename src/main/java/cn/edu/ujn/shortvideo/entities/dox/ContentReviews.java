@@ -1,4 +1,4 @@
-package cn.edu.ujn.shortvideo.entities;
+package cn.edu.ujn.shortvideo.entities.dox;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
@@ -6,45 +6,47 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName user_activity_logs
+ * @TableName content_reviews
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserActivityLogs implements Serializable {
+public class ContentReviews implements Serializable {
     @TableId
-    private Integer logId;
+    private Integer reviewId;
 
     /**
      * 
      */
-    private Integer userId;
+    private Integer videoId;
 
     /**
      * 
      */
-    private String activityType;
+    private String status;
 
     /**
      * 
      */
-    private String ipAddress;
+    private Integer reviewerId;
 
     /**
      * 
      */
-    private String deviceInfo;
+    private String notes;
 
     /**
      * 
      */
-    private LocalDateTime createdAt;
+    private LocalDateTime reviewedAt;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 }
