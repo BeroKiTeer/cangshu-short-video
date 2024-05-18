@@ -5,7 +5,9 @@ import cn.edu.ujn.shortvideo.common.properties.JwtProperties;
 import cn.edu.ujn.shortvideo.common.result.ApiResponse;
 import cn.edu.ujn.shortvideo.common.utils.JwtUtil;
 import cn.edu.ujn.shortvideo.entities.dox.Users;
+import cn.edu.ujn.shortvideo.entities.dto.UsersDTO;
 import cn.edu.ujn.shortvideo.entities.dto.UsersLoginDTO;
+import cn.edu.ujn.shortvideo.entities.dto.UsersRegisterDTO;
 import cn.edu.ujn.shortvideo.entities.vo.UsersLoginVO;
 import cn.edu.ujn.shortvideo.service.UserService;
 import jakarta.annotation.Resource;
@@ -25,9 +27,15 @@ public class UserController {
     @Resource
     private JwtProperties jwtProperties;
 
+    /**
+     * 用户注册
+     * @param usersLoginDTO
+     * @return
+     */
     @PostMapping("/login")
     public ApiResponse<UsersLoginVO> login(@RequestBody UsersLoginDTO usersLoginDTO) {
         Users users = userService.login(usersLoginDTO);
+        System.out.println(usersLoginDTO);
 
         Map<String, Object>claims = new HashMap<>();
         String token = JwtUtil.createJWT(
@@ -47,6 +55,11 @@ public class UserController {
         return ApiResponse.success(usersLoginVO);
     }
 
+    /**
+     * 用户信息
+     * @param userId
+     * @return
+     */
     @GetMapping("/{userId}")
     public ApiResponse<Users> getUserInfo(@PathVariable("userId") Integer userId) {
         Users users = userService.getUserById(userId);
@@ -55,4 +68,16 @@ public class UserController {
         }
         return ApiResponse.success(users);
     }
+
+    /**
+     * 用户注册
+     * @param usersRegisterDTO
+     * @return
+     */
+    @PostMapping("/register")
+    public ApiResponse register(@RequestBody UsersRegisterDTO usersRegisterDTO) {
+        userService.register(usersRegisterDTO);
+        return ApiResponse.success();
+    }
+
 }
