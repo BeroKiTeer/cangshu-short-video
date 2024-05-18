@@ -34,7 +34,7 @@ public class Users implements Serializable {
 
     private String profileImageUrl;
 
-    private Integer status;
+    private String status;
 
     private String role;
 
