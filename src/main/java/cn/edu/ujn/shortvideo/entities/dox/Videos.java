@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 
  * @TableName videos
  */
 @Data
@@ -22,54 +21,25 @@ public class Videos implements Serializable {
     @TableId
     private Integer videoId;
 
-    /**
-     * 
-     */
     private Integer userId;
 
-    /**
-     * 
-     */
     private String title;
 
-    /**
-     * 
-     */
     private String description;
 
-    /**
-     * 
-     */
     private String videoUrl;
 
-    /**
-     * 
-     */
     private String thumbnailUrl;
 
-    /**
-     * 
-     */
     private String status;
 
-    /**
-     * 
-     */
+
     private Integer duration;
 
-    /**
-     * 
-     */
     private String tags;
 
-    /**
-     * 
-     */
     private LocalDateTime createdAt;
 
-    /**
-     * 
-     */
     private LocalDateTime updatedAt;
 
     @Serial
