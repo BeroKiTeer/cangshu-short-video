@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * 视频上传接口
+ * @author ff
+ */
 @RestController
 @RequestMapping("/videos")
 public class VideoController {

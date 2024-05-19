@@ -12,6 +12,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
+/**
+ * 视频上传实现类
+ */
+
 @Service
 public class VideoServiceImpl implements VideoService {
 

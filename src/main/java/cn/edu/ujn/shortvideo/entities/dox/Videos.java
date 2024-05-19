@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 视频表
  * @TableName videos
  */
 @Data
