@@ -1,61 +1,74 @@
 package cn.edu.ujn.shortvideo.service.impl;
 
+import cn.edu.ujn.shortvideo.common.exception.ResourceNotFoundException;
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
 import cn.edu.ujn.shortvideo.mapper.VideosMapper;
 import cn.edu.ujn.shortvideo.service.VideoService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 @Service
-public class VideoServiceImpl implements VideoService {
+public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implements VideoService {
 
     @Autowired
     private VideosMapper videosMapper;
 
-    private final String UPLOAD_DIR = "path/to/upload/dir/";
-
     @Override
-    public void uploadVideo(String title, String description, MultipartFile file, MultipartFile thumbnail,
-                            String status, String tags, int duration, int userId) throws Exception {
-        // Save the video file
-        String videoFileName = saveFile(file);
+    public Videos uploadVideo(String title, String description, MultipartFile videoFile) {
+        // Implement file upload logic here and generate videoUrl and thumbnailUrl
+        String videoUrl = ""; // Upload the file and get the URL
+        String thumbnailUrl = ""; // Generate thumbnail and get the URL
 
-        // Save the thumbnail file
-        String thumbnailFileName = saveFile(thumbnail);
-
-        // Create a new video entity
-        Videos videos = Videos.builder()
-                .userId(userId)
+        Videos video = Videos.builder()
                 .title(title)
                 .description(description)
-                .videoUrl(videoFileName)
-                .thumbnailUrl(thumbnailFileName)
-                .status(status)
-                .tags(tags)
-                .duration(duration)
+                .videoUrl(videoUrl)
+                .thumbnailUrl(thumbnailUrl)
+                .status("public")
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
 
-        // Save the video entity to the database
-        videosMapper.insert(videos);
+        videosMapper.insert(video);
+        return video;
     }
 
-    private String saveFile(MultipartFile file) throws Exception {
-        if (file.isEmpty()) {
-            throw new Exception("文件为空");
+    @Override
+    public Videos getVideoDetails(int videoId) {
+        Videos video = videosMapper.selectById(videoId);
+        if (video == null) {
+            throw new ResourceNotFoundException("Video not found");
+        }
+        return video;
+    }
+
+    @Override
+    public Videos updateVideo(int videoId, String title, String description, String status) {
+        Videos video = videosMapper.selectById(videoId);
+        if (video == null) {
+            throw new ResourceNotFoundException("Video not found");
         }
 
-        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        Path path = Paths.get(UPLOAD_DIR + fileName);
-        Files.write(path, file.getBytes());
+        video.setTitle(title);
+        video.setDescription(description);
+        video.setStatus(status);
+        video.setUpdatedAt(LocalDateTime.now());
+        videosMapper.updateById(video);
 
-        return fileName;
+        return video;
+    }
+
+    @Override
+    public void deleteVideo(int videoId) {
+        Videos video = videosMapper.selectById(videoId);
+        if (video == null) {
+            throw new ResourceNotFoundException("Video not found");
+        }
+
+        videosMapper.deleteById(videoId);
     }
 }
