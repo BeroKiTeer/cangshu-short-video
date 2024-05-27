@@ -12,12 +12,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
+/**
+ * 视频上传、获取视频详情、更新视频信息和删除视频的实现类
+ * @author ff
+ */
 @Service
 public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implements VideoService {
 
     @Autowired
     private VideosMapper videosMapper;
 
+    /**
+     * 根据视频ID获取视频详情
+     */
     @Override
     public Videos uploadVideo(String title, String description, MultipartFile videoFile) {
         // Implement file upload logic here and generate videoUrl and thumbnailUrl
@@ -37,7 +44,9 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
         videosMapper.insert(video);
         return video;
     }
-
+    /**
+    * 获取视频详情
+    */
     @Override
     public Videos getVideoDetails(int videoId) {
         Videos video = videosMapper.selectById(videoId);
@@ -47,6 +56,9 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
         return video;
     }
 
+    /**
+     * 更新视频
+     */
     public Videos updateVideo(int videoId, VideoDTO videoDTO) {
         Videos existingVideo = videosMapper.selectById(videoId);
         if (existingVideo == null) {
@@ -71,6 +83,9 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
         return updatedVideo;
     }
 
+    /**
+     * 删除视频
+     */
     @Override
     public void deleteVideo(int videoId) {
         Videos video = videosMapper.selectById(videoId);
