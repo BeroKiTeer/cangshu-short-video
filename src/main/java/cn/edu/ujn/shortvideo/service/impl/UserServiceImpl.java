@@ -5,6 +5,7 @@ import cn.edu.ujn.shortvideo.common.constant.StatusConstant;
 import cn.edu.ujn.shortvideo.common.exception.AccountNotFoundException;
 import cn.edu.ujn.shortvideo.common.exception.PasswordErrorException;
 import cn.edu.ujn.shortvideo.entities.Users;
+import cn.edu.ujn.shortvideo.entities.dto.UsersDTO;
 import cn.edu.ujn.shortvideo.entities.dto.UsersLoginDTO;
 import cn.edu.ujn.shortvideo.mapper.UsersMapper;
 import cn.edu.ujn.shortvideo.service.UserService;
@@ -57,5 +58,31 @@ public class UserServiceImpl implements UserService {
         }
 
         return users;
+    }
+
+    /**
+     * 修改密码
+     * @param users
+     * @return
+     */
+    @Override
+    public UsersLoginDTO updatePassword(UsersLoginDTO users) {
+        String username = users.getUsername();
+        String password = users.getHashedPassword();
+        Users users1 = usersMapper.selectByUsername(username);
+
+        DigestUtils.md5DigestAsHex(password.getBytes());
+
+        int i = usersMapper.updatePasswordById(users1.getUserId());
+
+        Users users2 = usersMapper.selectById(users1.getUserId());
+
+        return UsersLoginDTO.builder()
+                .userId(users2.getUserId())
+                .role(users2.getRole())
+                .hashedPassword(users2.getHashedPassword())
+                .username(users2.getUsername())
+                .email(users2.getEmail())
+                .build();
     }
 }

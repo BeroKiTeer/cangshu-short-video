@@ -26,6 +26,11 @@ public class UserController {
     @Resource
     private JwtProperties jwtProperties;
 
+    /**
+     * 登录
+     * @param usersLoginDTO
+     * @return
+     */
     @PostMapping("/login")
     public ApiResponse<UsersLoginVO> login(@RequestBody UsersLoginDTO usersLoginDTO) {
         Users users = userService.login(usersLoginDTO);
@@ -48,6 +53,11 @@ public class UserController {
         return ApiResponse.success(usersLoginVO);
     }
 
+    /**
+     * 注册
+     * @param userId
+     * @return
+     */
     @GetMapping("/{userId}")
     public ApiResponse<Users> getUserInfo(@PathVariable("userId") Integer userId) {
         Users users = userService.getUserById(userId);
@@ -55,5 +65,19 @@ public class UserController {
             return ApiResponse.fail(MessageConstant.USER_NOT_EXIST);
         }
         return ApiResponse.success(users);
+    }
+
+    /**
+     * 更新密码
+     * @param users
+     * @return
+     */
+    @PutMapping("/updatePassword")
+    public ApiResponse<UsersLoginDTO> updatePassword(@RequestBody UsersLoginDTO users) {
+        UsersLoginDTO user = userService.updatePassword(users);
+        if(user == null) {
+            return ApiResponse.fail(MessageConstant.USER_NOT_EXIST);
+        }
+        return ApiResponse.success(user);
     }
 }

@@ -19,4 +19,11 @@ public interface UserService {
      * @return
      */
     Users login(UsersLoginDTO usersLoginDTO);
+
+    /**
+     * 修改密码
+     * @param users
+     * @return
+     */
+    UsersLoginDTO updatePassword(UsersLoginDTO users);
 }
