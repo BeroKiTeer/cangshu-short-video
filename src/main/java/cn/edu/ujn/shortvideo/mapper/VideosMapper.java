@@ -2,7 +2,11 @@ package cn.edu.ujn.shortvideo.mapper;
 
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * * VideosMapper 接口，定义了视频相关的数据库操作方法
@@ -15,7 +19,8 @@ import org.apache.ibatis.annotations.Mapper;
 */
 @Mapper
 public interface VideosMapper extends BaseMapper<Videos> {
-
+    @Select("SELECT * FROM videos WHERE title LIKE CONCAT('%', #{title}, '%')")
+    IPage<Videos> selectPagedVideos(Page<?> page, @Param("title") String title);
 }
 
 

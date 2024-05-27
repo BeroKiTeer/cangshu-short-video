@@ -3,6 +3,7 @@ import cn.edu.ujn.shortvideo.common.result.ApiResponse;
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
 import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import cn.edu.ujn.shortvideo.service.VideoService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,5 +58,16 @@ public class VideoController {
     public ApiResponse<String> deleteVideo(@PathVariable int videoId) {
         videoService.deleteVideo(videoId);
         return ApiResponse.success("Video deleted successfully");
+    }
+
+    /**
+     * 获取视频列表，支持分页
+     */
+    @GetMapping
+    public ApiResponse<IPage<Videos>> getPagedVideos(
+            @RequestParam(defaultValue = "1") int currentPage,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        IPage<Videos> videoPage = videoService.getPagedVideos(currentPage, pageSize);
+        return ApiResponse.success(videoPage);
     }
 }
