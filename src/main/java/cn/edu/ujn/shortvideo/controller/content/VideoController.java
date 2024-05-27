@@ -1,6 +1,7 @@
 package cn.edu.ujn.shortvideo.controller.content;
 import cn.edu.ujn.shortvideo.common.result.ApiResponse;
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
+import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import cn.edu.ujn.shortvideo.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +32,8 @@ public class VideoController {
     @PutMapping("/{videoId}")
     public ApiResponse<Videos> updateVideo(
             @PathVariable int videoId,
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam String status) {
-        Videos video = videoService.updateVideo(videoId, title, description, status);
+            @RequestBody VideoDTO videoDTO) {
+        Videos video = videoService.updateVideo(videoId, videoDTO);
         return ApiResponse.success(video);
     }
 

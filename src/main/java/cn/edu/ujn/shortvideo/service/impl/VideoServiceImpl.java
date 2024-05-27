@@ -2,6 +2,7 @@ package cn.edu.ujn.shortvideo.service.impl;
 
 import cn.edu.ujn.shortvideo.common.exception.ResourceNotFoundException;
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
+import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import cn.edu.ujn.shortvideo.mapper.VideosMapper;
 import cn.edu.ujn.shortvideo.service.VideoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -46,20 +47,28 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
         return video;
     }
 
-    @Override
-    public Videos updateVideo(int videoId, String title, String description, String status) {
-        Videos video = videosMapper.selectById(videoId);
-        if (video == null) {
+    public Videos updateVideo(int videoId, VideoDTO videoDTO) {
+        Videos existingVideo = videosMapper.selectById(videoId);
+        if (existingVideo == null) {
             throw new ResourceNotFoundException("Video not found");
         }
 
-        video.setTitle(title);
-        video.setDescription(description);
-        video.setStatus(status);
-        video.setUpdatedAt(LocalDateTime.now());
-        videosMapper.updateById(video);
+        Videos updatedVideo = Videos.builder()
+                .videoId(existingVideo.getVideoId())
+                .userId(existingVideo.getUserId())
+                .title(videoDTO.getTitle())
+                .description(videoDTO.getDescription())
+                .status(videoDTO.getStatus())
+                .thumbnailUrl(existingVideo.getThumbnailUrl())
+                .duration(existingVideo.getDuration())
+                .tags(existingVideo.getTags())
+                .createdAt(existingVideo.getCreatedAt())
+                .updatedAt(LocalDateTime.now())
+                .build();
 
-        return video;
+        videosMapper.updateById(updatedVideo);
+
+        return updatedVideo;
     }
 
     @Override
