@@ -22,7 +22,7 @@ public class FollowsController {
      * @return 返回一个表示操作成功的ApiResponse对象。
      */
     @PostMapping
-    public ApiResponse<?> follow(@RequestParam int followerId, @RequestParam int followedId) {
+    public ApiResponse follow(@RequestParam int followerId, @RequestParam int followedId) {
         // 调用服务层方法，执行关注操作
         followsService.follow(followerId, followedId);
         // 返回成功响应
@@ -36,7 +36,7 @@ public class FollowsController {
      * @return 返回一个成功的API响应，表明取消关注操作已完成。
      */
     @DeleteMapping("/{followId}")
-    public ApiResponse<?> unfollow(@PathVariable int followId) {
+    public ApiResponse unfollow(@PathVariable int followId) {
         // 调用服务层方法，执行取消关注操作
         followsService.unfollow(followId);
         // 返回成功响应
