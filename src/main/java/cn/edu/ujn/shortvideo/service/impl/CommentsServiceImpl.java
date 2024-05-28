@@ -3,6 +3,8 @@ package cn.edu.ujn.shortvideo.service.impl;
 import cn.edu.ujn.shortvideo.entities.dox.Comments;
 import cn.edu.ujn.shortvideo.mapper.CommentsMapper;
 import cn.edu.ujn.shortvideo.service.CommentsService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 
 import java.util.List;
@@ -57,11 +59,26 @@ public class CommentsServiceImpl implements CommentsService {
      * @return 返回更新后的评论对象。
      */
     @Override
-    public Comments updateComment(Comments comment) {
-        // 通过ID更新评论信息
-        commentsMapper.updateById(comment);
-        // 根据ID重新获取并返回更新后的评论对象
-        return commentsMapper.selectById(comment.getCommentId());
+    public Comments updateComment(Comments comment, Integer userId) {
+        Comments existingComment = commentsMapper.selectById(comment.getCommentId());
+        if (existingComment != null && existingComment.getUserId().equals(userId)) {
+            commentsMapper.updateById(comment);
+            return commentsMapper.selectById(comment.getCommentId());
+        }
+        return null;
+    }
+
+    /**
+     * 根据视频ID和分页参数获取评论列表。
+     *
+     * @param page 分页参数，包含当前页数和每页的记录数。
+     * @param videoId 视频的唯一标识符。
+     * @return 返回一个IPage<Comments>对象，包含当前页的评论列表。
+     */
+    @Override
+    public IPage<Comments> getCommentsByVideoIdWithPagination(Page<Comments> page, int videoId) {
+        // 调用commentsMapper，根据视频ID和分页参数查询评论
+        return commentsMapper.selectCommentsByVideoIdWithPagination(page, videoId);
     }
 
 }
