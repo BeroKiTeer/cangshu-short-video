@@ -6,9 +6,10 @@ import cn.edu.ujn.shortvideo.service.CommentsService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CommentsServiceImpl implements CommentsService {
     @Resource
     private CommentsMapper commentsMapper;
@@ -80,5 +81,17 @@ public class CommentsServiceImpl implements CommentsService {
         // 调用commentsMapper，根据视频ID和分页参数查询评论
         return commentsMapper.selectCommentsByVideoIdWithPagination(page, videoId);
     }
-
+    /**
+     * 检查评论是否为指定用户所有。
+     *
+     * @param commentId 评论的ID，用于标识特定的评论。
+     * @param userId 用户的ID，用于标识评论的归属用户。
+     * @return 返回一个布尔值，如果评论为指定用户所有，则返回true；否则返回false。
+     */
+    @Override
+    public boolean isCommentOwnedByUser(int commentId, int userId) {
+        // 通过commentsMapper检查评论是否为用户所有
+        return commentsMapper.isCommentOwnedByUser(commentId, userId);
+    }
 }
+

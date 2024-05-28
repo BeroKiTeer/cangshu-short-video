@@ -12,4 +12,5 @@ public interface CommentsService {
     List<Comments> getCommentsByVideoId(int videoId);
     Comments updateComment(Comments comment, Integer userId);
     IPage<Comments> getCommentsByVideoIdWithPagination(Page<Comments> page, int videoId);
+    boolean isCommentOwnedByUser(int commentId, int userId);
 }

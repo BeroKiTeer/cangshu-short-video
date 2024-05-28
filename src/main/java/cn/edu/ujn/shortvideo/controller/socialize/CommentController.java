@@ -1,6 +1,5 @@
 package cn.edu.ujn.shortvideo.controller.socialize;
 
-
 import cn.edu.ujn.shortvideo.common.result.ApiResponse;
 import cn.edu.ujn.shortvideo.entities.dox.Comments;
 import cn.edu.ujn.shortvideo.service.CommentsService;
@@ -8,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -21,13 +21,13 @@ public class CommentController {
      * 添加评论
      *
      * @param comments 包含评论内容的对象，通过请求体传入
+     * @param userId 当前用户的ID，通过请求参数传入
      * @return ApiResponse<Comments> 返回添加成功的评论以及相关状态信息
      */
     @PostMapping
-    public ApiResponse<Comments> addComment(@RequestBody Comments comments) {
-        // 通过服务层添加评论
+    public ApiResponse<Comments> addComment(@RequestBody Comments comments, @RequestParam Integer userId) {
+        comments.setUserId(userId);
         Comments addedComment = commentsService.addComment(comments);
-        // 构建并返回成功响应
         return ApiResponse.success(addedComment);
     }
 
@@ -35,13 +35,15 @@ public class CommentController {
      * 删除指定ID的评论。
      *
      * @param commentId 评论的唯一标识符，来自URL路径变量。
+     * @param userId 当前用户的ID，通过请求参数传入
      * @return 返回一个表示操作成功的ApiResponse<Void>对象。
      */
     @DeleteMapping("/{commentId}")
-    public ApiResponse<Void> deleteComment(@PathVariable int commentId) {
-        // 调用评论服务，删除指定ID的评论
+    public ApiResponse<Void> deleteComment(@PathVariable int commentId, @RequestParam Integer userId) {
+        if (!commentsService.isCommentOwnedByUser(commentId, userId)) {
+            return ApiResponse.fail("Comment not owned by user");
+        }
         commentsService.deleteComment(commentId);
-        // 返回成功响应
         return ApiResponse.success();
     }
 
@@ -53,9 +55,7 @@ public class CommentController {
      */
     @GetMapping("/video/{videoId}")
     public ApiResponse<List<Comments>> getCommentsByVideoId(@PathVariable int videoId) {
-        // 通过视频ID从评论服务获取评论列表
         List<Comments> comments = commentsService.getCommentsByVideoId(videoId);
-        // 构造并返回一个成功的API响应，包含获取到的评论列表
         return ApiResponse.success(comments);
     }
 
@@ -63,11 +63,16 @@ public class CommentController {
      * 更新评论信息。
      *
      * @param comment 包含更新信息的评论对象，通过请求体传入。
+     * @param userId 当前用户的ID，通过请求参数传入
      * @return ApiResponse<Comments> 如果评论更新成功，返回包含更新后评论信息的ApiResponse对象；如果评论未找到，返回一个包含错误信息的ApiResponse对象。
      */
     @PutMapping("/{commentId}")
     public ApiResponse<Comments> updateComment(@PathVariable Integer commentId, @RequestBody Comments comment, @RequestParam Integer userId) {
+        if (!commentsService.isCommentOwnedByUser(commentId, userId)) {
+            return ApiResponse.fail("Comment not owned by user");
+        }
         comment.setCommentId(commentId);
+        comment.setUserId(userId);
         Comments updatedComment = commentsService.updateComment(comment, userId);
         if (updatedComment != null) {
             return ApiResponse.success(updatedComment);
@@ -90,11 +95,8 @@ public class CommentController {
             @RequestParam(defaultValue = "1") int pageNo,
             @RequestParam(defaultValue = "10") int pageSize) {
 
-        // 初始化分页对象
         Page<Comments> page = new Page<>(pageNo, pageSize);
-        // 调用服务层方法，根据视频ID和分页参数获取评论分页信息
         IPage<Comments> commentsPage = commentsService.getCommentsByVideoIdWithPagination(page, videoId);
-        // 返回成功的API响应，包含评论分页信息
         return ApiResponse.success(commentsPage);
     }
 }

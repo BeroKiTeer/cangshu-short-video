@@ -10,13 +10,8 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-/**
-* @author dell
-* @description 针对表【comments】的数据库操作Mapper
-* @createDate 2024-05-11 14:51:39
-* @Entity generator.domain.Comments
-*/
 public interface CommentsMapper extends BaseMapper<Comments> {
+
     @Insert("INSERT INTO comments(video_id, user_id, text, status, created_at) VALUES(#{videoId}, #{userId}, #{text}, #{status}, #{createdAt})")
     void insertComment(Comments comment);
 
@@ -25,8 +20,15 @@ public interface CommentsMapper extends BaseMapper<Comments> {
 
     @Select("SELECT * FROM comments WHERE video_id = #{videoId} AND status = 'visible'")
     List<Comments> selectCommentsByVideoId(int videoId);
+
     @Select("SELECT * FROM comments WHERE video_id = #{videoId} AND status = 'visible'")
     IPage<Comments> selectCommentsByVideoIdWithPagination(Page<?> page, int videoId);
+
+    @Select("SELECT * FROM comments WHERE comment_id = #{commentId}")
+    Comments selectById(int commentId);
+
+    @Select("SELECT COUNT(*) > 0 FROM comments WHERE comment_id = #{commentId} AND user_id = #{userId}")
+    boolean isCommentOwnedByUser(int commentId, int userId);
 }
 
 
