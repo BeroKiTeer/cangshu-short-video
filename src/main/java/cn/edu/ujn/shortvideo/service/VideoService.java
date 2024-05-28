@@ -12,6 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 public interface VideoService {
     Videos uploadVideo(String title, String description, MultipartFile videoFile);
     Videos getVideoDetails(int videoId);
-    Videos updateVideo(int videoId, VideoDTO videoDTO);
+    Videos updateVideo(VideoDTO videoDTO);
     void deleteVideo(int videoId);
 }

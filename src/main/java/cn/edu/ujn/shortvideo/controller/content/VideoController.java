@@ -46,7 +46,7 @@ public class VideoController {
     public ApiResponse<Videos> updateVideo(
             @PathVariable int videoId,
             @RequestBody VideoDTO videoDTO) {
-        Videos video = videoService.updateVideo(videoId, videoDTO);
+        Videos video = videoService.updateVideo(videoDTO);
         return ApiResponse.success(video);
     }
 
