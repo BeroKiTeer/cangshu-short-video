@@ -56,4 +56,22 @@ public class CommentController {
         // 构造并返回一个成功的API响应，包含获取到的评论列表
         return ApiResponse.success(comments);
     }
+    /**
+     * 更新评论信息。
+     *
+     * @param comment 包含更新信息的评论对象，通过请求体传入。
+     * @return ApiResponse<Comments> 如果评论更新成功，返回包含更新后评论信息的ApiResponse对象；如果评论未找到，返回一个包含错误信息的ApiResponse对象。
+     */
+    @PutMapping
+    public ApiResponse<Comments> updateComment(@RequestBody Comments comment) {
+        // 通过服务层更新评论信息
+        Comments updatedComment = commentsService.updateComment(comment);
+        if (updatedComment != null) {
+            // 评论更新成功，返回更新后的评论信息
+            return ApiResponse.success(updatedComment);
+        } else {
+            // 评论未找到，返回错误信息
+            return ApiResponse.fail("Comment not found");
+        }
+    }
 }

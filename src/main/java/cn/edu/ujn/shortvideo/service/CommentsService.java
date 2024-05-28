@@ -8,4 +8,5 @@ public interface CommentsService {
     Comments addComment(Comments comment);
     void deleteComment(int commentId);
     List<Comments> getCommentsByVideoId(int videoId);
+    Comments updateComment(Comments comment);
 }
