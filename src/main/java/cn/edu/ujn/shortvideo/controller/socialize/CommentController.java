@@ -46,7 +46,7 @@ public class CommentController {
     /**
      * 根据视频ID获取评论列表。
      *
-     * @param videoId 需要获取评论的视频ID，来自于URL路径变量。
+     * @param videoId 评论的视频ID，来自于URL路径变量。
      * @return 返回一个包含评论列表的ApiResponse对象，如果成功获取评论，则comments字段为评论列表。
      */
     @GetMapping("/video/{videoId}")

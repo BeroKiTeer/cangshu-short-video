@@ -11,17 +11,31 @@ public class CommentsServiceImpl implements CommentsService {
     @Resource
     private CommentsMapper commentsMapper;
 
+    /**
+     *
+     * @param comments
+     * @return
+     */
     @Override
     public Comments addComment(Comments comments) {
         commentsMapper.insertComment(comments);
         return comments;
     }
 
+    /**
+     *
+     * @param commentId
+     */
     @Override
     public void deleteComment(int commentId) {
         commentsMapper.deleteComment(commentId);
     }
 
+    /**
+     *
+     * @param videoId
+     * @return
+     */
     @Override
     public List<Comments> getCommentsByVideoId(int videoId) {
         return commentsMapper.selectCommentsByVideoId(videoId);
