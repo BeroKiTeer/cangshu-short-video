@@ -1,9 +1,8 @@
 package cn.edu.ujn.shortvideo.service;
 
-import cn.edu.ujn.shortvideo.entities.Users;
+import cn.edu.ujn.shortvideo.entities.dox.Users;
 import cn.edu.ujn.shortvideo.entities.dto.UsersLoginDTO;
-import cn.edu.ujn.shortvideo.mapper.UsersMapper;
-import jakarta.annotation.Resource;
+import cn.edu.ujn.shortvideo.entities.dto.UsersRegisterDTO;
 
 public interface UserService {
     /**
@@ -26,4 +25,9 @@ public interface UserService {
      * @return
      */
     UsersLoginDTO updatePassword(UsersLoginDTO users);
+    /**
+     * 注册用户
+     * @param usersRegisterDTO
+     */
+    void register(UsersRegisterDTO usersRegisterDTO);
 }

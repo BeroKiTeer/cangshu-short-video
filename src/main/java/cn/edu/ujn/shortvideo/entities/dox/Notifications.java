@@ -1,4 +1,4 @@
-package cn.edu.ujn.shortvideo.entities;
+package cn.edu.ujn.shortvideo.entities.dox;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName user_activity_logs
+ * @TableName notifications
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserActivityLogs implements Serializable {
+public class Notifications implements Serializable {
     @TableId
-    private Integer logId;
+    private Integer notificationId;
 
     /**
      * 
@@ -29,17 +29,17 @@ public class UserActivityLogs implements Serializable {
     /**
      * 
      */
-    private String activityType;
+    private String type;
 
     /**
      * 
      */
-    private String ipAddress;
+    private Integer referenceId;
 
     /**
      * 
      */
-    private String deviceInfo;
+    private Integer read;
 
     /**
      * 

@@ -1,4 +1,4 @@
-package cn.edu.ujn.shortvideo.entities;
+package cn.edu.ujn.shortvideo.entities.dox;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
@@ -12,55 +12,30 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName ads
+ * @TableName follows
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Ads implements Serializable {
+public class Follows implements Serializable {
     @TableId
-    private Integer adId;
+    private Integer followId;
 
     /**
      * 
      */
-    private String title;
+    private Integer followerId;
 
     /**
      * 
      */
-    private String description;
-
-    /**
-     * 
-     */
-    private String url;
-
-    /**
-     * 
-     */
-    private String imageUrl;
-
-    /**
-     * 
-     */
-    private LocalDateTime startDate;
-
-    /**
-     * 
-     */
-    private LocalDateTime endDate;
+    private Integer followedId;
 
     /**
      * 
      */
     private LocalDateTime createdAt;
-
-    /**
-     * 
-     */
-    private LocalDateTime updatedAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

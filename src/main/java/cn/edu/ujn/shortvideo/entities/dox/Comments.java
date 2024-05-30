@@ -1,4 +1,4 @@
-package cn.edu.ujn.shortvideo.entities;
+package cn.edu.ujn.shortvideo.entities.dox;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
@@ -12,15 +12,15 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName video_views
+ * @TableName comments
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class VideoViews implements Serializable {
+public class Comments implements Serializable {
     @TableId
-    private Integer viewId;
+    private Integer commentId;
 
     /**
      * 
@@ -35,7 +35,17 @@ public class VideoViews implements Serializable {
     /**
      * 
      */
-    private LocalDateTime watchedAt;
+    private String text;
+
+    /**
+     * 
+     */
+    private String status;
+
+    /**
+     * 
+     */
+    private LocalDateTime createdAt;
 
     @Serial
     private static final long serialVersionUID = 1L;

@@ -4,8 +4,10 @@ import cn.edu.ujn.shortvideo.common.constant.MessageConstant;
 import cn.edu.ujn.shortvideo.common.properties.JwtProperties;
 import cn.edu.ujn.shortvideo.common.result.ApiResponse;
 import cn.edu.ujn.shortvideo.common.utils.JwtUtil;
-import cn.edu.ujn.shortvideo.entities.Users;
+import cn.edu.ujn.shortvideo.entities.dox.Users;
+import cn.edu.ujn.shortvideo.entities.dto.UsersDTO;
 import cn.edu.ujn.shortvideo.entities.dto.UsersLoginDTO;
+import cn.edu.ujn.shortvideo.entities.dto.UsersRegisterDTO;
 import cn.edu.ujn.shortvideo.entities.vo.UsersLoginVO;
 import cn.edu.ujn.shortvideo.service.UserService;
 import jakarta.annotation.Resource;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * 用户管理
@@ -34,6 +35,7 @@ public class UserController {
     @PostMapping("/login")
     public ApiResponse<UsersLoginVO> login(@RequestBody UsersLoginDTO usersLoginDTO) {
         Users users = userService.login(usersLoginDTO);
+        System.out.println(usersLoginDTO);
 
         Map<String, Object>claims = new HashMap<>();
         String token = JwtUtil.createJWT(
@@ -54,7 +56,7 @@ public class UserController {
     }
 
     /**
-     * 注册
+     * 用户信息
      * @param userId
      * @return
      */
@@ -79,5 +81,15 @@ public class UserController {
             return ApiResponse.fail(MessageConstant.USER_NOT_EXIST);
         }
         return ApiResponse.success(user);
+    }
+    /**
+     * 用户注册
+     * @param usersRegisterDTO
+     * @return
+     */
+    @PostMapping("/register")
+    public ApiResponse register(@RequestBody UsersRegisterDTO usersRegisterDTO) {
+        userService.register(usersRegisterDTO);
+        return ApiResponse.success();
     }
 }
