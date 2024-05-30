@@ -20,6 +20,12 @@ public interface UserService {
     Users login(UsersLoginDTO usersLoginDTO);
 
     /**
+     * 修改密码
+     * @param users
+     * @return
+     */
+    UsersLoginDTO updatePassword(UsersLoginDTO users);
+    /**
      * 注册用户
      * @param usersRegisterDTO
      */

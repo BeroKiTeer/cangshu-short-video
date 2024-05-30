@@ -3,6 +3,7 @@ package cn.edu.ujn.shortvideo.mapper;
 import cn.edu.ujn.shortvideo.entities.dox.Users;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
 * @author dell
@@ -14,6 +15,9 @@ public interface UsersMapper extends BaseMapper<Users> {
 
     @Select("select * from users where username = #{username}")
     Users selectByUsername(String username);
+
+    @Update("update users set hashed_password = #{password} where user_id = #{userId}")
+    int updatePasswordById(Integer userId);
 }
 
 

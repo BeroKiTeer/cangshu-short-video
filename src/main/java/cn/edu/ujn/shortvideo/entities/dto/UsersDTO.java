@@ -20,17 +20,11 @@ import java.time.LocalDateTime;
 public class UsersDTO implements Serializable {
 
     private Integer userId;
-
     private String username;
-
     private String email;
-
     private String bio;
-
     private String profileImageUrl;
-
     private String status;
-
     private String role;
 
 }

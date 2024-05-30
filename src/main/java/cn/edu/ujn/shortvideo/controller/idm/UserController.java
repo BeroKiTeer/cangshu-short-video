@@ -28,7 +28,7 @@ public class UserController {
     private JwtProperties jwtProperties;
 
     /**
-     * 用户注册
+     * 登录
      * @param usersLoginDTO
      * @return
      */
@@ -70,6 +70,19 @@ public class UserController {
     }
 
     /**
+     * 更新密码
+     * @param users
+     * @return
+     */
+    @PutMapping("/updatePassword")
+    public ApiResponse<UsersLoginDTO> updatePassword(@RequestBody UsersLoginDTO users) {
+        UsersLoginDTO user = userService.updatePassword(users);
+        if(user == null) {
+            return ApiResponse.fail(MessageConstant.USER_NOT_EXIST);
+        }
+        return ApiResponse.success(user);
+    }
+    /**
      * 用户注册
      * @param usersRegisterDTO
      * @return
@@ -79,5 +92,4 @@ public class UserController {
         userService.register(usersRegisterDTO);
         return ApiResponse.success();
     }
-
 }
