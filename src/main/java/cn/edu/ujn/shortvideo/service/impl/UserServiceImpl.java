@@ -6,7 +6,7 @@ import cn.edu.ujn.shortvideo.common.constant.StatusConstant;
 import cn.edu.ujn.shortvideo.common.exception.AccountAlreadyExistException;
 import cn.edu.ujn.shortvideo.common.exception.AccountNotFoundException;
 import cn.edu.ujn.shortvideo.common.exception.PasswordErrorException;
-import cn.edu.ujn.shortvideo.entities.Users;
+import cn.edu.ujn.shortvideo.entities.dox.Users;
 import cn.edu.ujn.shortvideo.entities.dto.UsersDTO;
 import cn.edu.ujn.shortvideo.entities.dto.UsersLoginDTO;
 import cn.edu.ujn.shortvideo.entities.dto.UsersRegisterDTO;
@@ -88,6 +88,7 @@ public class UserServiceImpl implements UserService {
                 .username(users2.getUsername())
                 .email(users2.getEmail())
                 .build();
+    }
     @Override
     public void register(UsersRegisterDTO usersRegisterDTO) {
         Users users = new Users();
