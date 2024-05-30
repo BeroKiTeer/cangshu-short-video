@@ -2,6 +2,7 @@ package cn.edu.ujn.shortvideo.service.impl;
 
 import cn.edu.ujn.shortvideo.common.exception.ResourceNotFoundException;
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
+import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import cn.edu.ujn.shortvideo.mapper.VideosMapper;
 import cn.edu.ujn.shortvideo.service.VideoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,12 +12,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
+/**
+ * 视频上传、获取视频详情、更新视频信息和删除视频的实现类
+ * @author ff
+ */
 @Service
 public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implements VideoService {
 
     @Autowired
     private VideosMapper videosMapper;
 
+    /**
+     * 根据视频ID获取视频详情
+     */
     @Override
     public Videos uploadVideo(String title, String description, MultipartFile videoFile) {
         // Implement file upload logic here and generate videoUrl and thumbnailUrl
@@ -36,7 +44,9 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
         videosMapper.insert(video);
         return video;
     }
-
+    /**
+    * 获取视频详情
+    */
     @Override
     public Videos getVideoDetails(int videoId) {
         Videos video = videosMapper.selectById(videoId);
@@ -46,22 +56,36 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
         return video;
     }
 
-    @Override
-    public Videos updateVideo(int videoId, String title, String description, String status) {
-        Videos video = videosMapper.selectById(videoId);
-        if (video == null) {
+    /**
+     * 更新视频
+     */
+    public Videos updateVideo(VideoDTO videoDTO) {
+        Videos existingVideo = videosMapper.selectById(videoDTO.getVideoId());
+        if (existingVideo == null) {
             throw new ResourceNotFoundException("Video not found");
         }
 
-        video.setTitle(title);
-        video.setDescription(description);
-        video.setStatus(status);
-        video.setUpdatedAt(LocalDateTime.now());
-        videosMapper.updateById(video);
+        Videos updatedVideo = Videos.builder()
+                .videoId(existingVideo.getVideoId())
+                .userId(existingVideo.getUserId())
+                .title(videoDTO.getTitle())
+                .description(videoDTO.getDescription())
+                .status(videoDTO.getStatus())
+                .thumbnailUrl(existingVideo.getThumbnailUrl())
+                .duration(existingVideo.getDuration())
+                .tags(existingVideo.getTags())
+                .createdAt(existingVideo.getCreatedAt())
+                .updatedAt(LocalDateTime.now())
+                .build();
 
-        return video;
+        int ret = videosMapper.updateById(updatedVideo);
+
+        return updatedVideo;
     }
 
+    /**
+     * 删除视频
+     */
     @Override
     public void deleteVideo(int videoId) {
         Videos video = videosMapper.selectById(videoId);

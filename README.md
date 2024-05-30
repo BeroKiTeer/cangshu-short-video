@@ -10,28 +10,28 @@
 - [ ] 密码重置：用户可以通过邮箱重置密码。
 - [x] 获取用户信息
 
-### **视频管理**
+### **视频管理**--ff524.1
 
-- [x] 519ff视频上传：用户可以上传视频内容，包括标题、描述、视频文件。
-- [ ] 视频浏览：用户可以浏览其他用户上传的视频。
-- [ ] 视频编辑：视频上传者可以编辑或删除自己的视频。
-  - [ ] 删除视频
-  - [ ] 更新视频
+- [x] 视频上传：用户可以上传视频内容，包括标题、描述、视频文件。
+- [x] 视频浏览：用户可以浏览其他用户上传的视频。
+- [x] 视频编辑：视频上传者可以编辑或删除自己的视频。
+  - [x] 删除视频
+  - [x] 更新视频
 
 
-### **社交互动**
+### **社交互动**--ym521.1
 
-- [ ] 评论功能：用户可以对视频进行评论。
-  - [ ] 发表评论
-  - [ ] 删除评论
+- [x] 评论功能：用户可以对视频进行评论。
+  - [x] 发表评论
+  - [x] 删除评论
 
 - [x] 51920：00-ym点赞功能：用户可以对视频进行点赞。
-  - [ ] 点赞
-  - [ ] 取消点赞
+  - [x] 点赞
+  - [x] 取消点赞
 
-- [ ] 关注功能：用户可以关注其他用户，以便获得关注用户的视频更新通知。
-  - [ ] 关注用户
-  - [ ] 取关用户
+- [x] 关注功能：用户可以关注其他用户，以便获得关注用户的视频更新通知。
+  - [x] 关注用户
+  - [x] 取关用户
 
 
 ### **搜索与发现**
@@ -260,11 +260,126 @@
 
 ## 接口信息
 
-视频管理
+### 用户管理
+
+**1. 注册用户**
+
+- **Method:** POST
+
+- **URL:** `/api/users/register`
+
+- Body:
+
+  ```json
+  {
+    "username": "string",
+    "email": "string",
+    "password": "string"
+  }
+  ```
+
+- Response:
+
+  ```json
+  {
+    "user_id": "int",
+    "username": "string",
+    "email": "string",
+    "created_at": "datetime"
+  }
+  ```
+
+**2. 用户登录**
+
+- **Method:** POST
+
+- **URL:** `/api/users/login`
+
+- Body:
+
+  ```json
+  {
+    "email": "string",
+    "password": "string"
+  }
+  ```
+
+- Response:
+
+  ```json
+  {
+    "token": "string"
+  }
+  ```
+
+**3. 获取用户信息**
+
+- **Method:** GET
+
+- **URL:** `/api/users/{userId}`
+
+- Headers:
+
+  ```makefile
+  Authorization: Bearer Token
+  ```
+  
+- Response:
+
+  ```json
+  {
+    "user_id": "int",
+    "username": "string",
+    "email": "string",
+    "bio": "string",
+    "profile_image_url": "string",
+    "status": "string",
+    "created_at": "datetime"
+  }
+  ```
+
+**4. 更新用户信息**
+
+- **Method:** PUT
+
+- **URL:** `/api/users/{userId}`
+
+- Headers:
+
+  ```makefile
+  Authorization: Bearer Token
+  ```
+
+- Body:
+
+  ```json
+  {
+    "email": "string",
+    "username": "string",
+    "sex": "int",
+    "bio": "string",
+    "profile_image_url": "string"
+  }
+  ```
+
+- Response:
+
+  ```json
+  {
+    "user_id": "int",
+    "username": "string",
+    "email": "string",
+    "bio": "string",
+    "profile_image_url": "string",
+    "updated_at": "datetime"
+  }
+  ```
+
+### 视频内容管理
 
 **5. 上传视频**
 
-**Method:** POST
+- **Method:** POST
 
 - **URL:** `/api/videos`
 
