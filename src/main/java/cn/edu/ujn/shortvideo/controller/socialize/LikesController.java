@@ -34,10 +34,13 @@ public class LikesController {
      */
     @PostMapping("/api/likes")
     @ResponseBody
-    public ApiResponse<Likes> likeVideo(@RequestParam Integer videoId, @RequestParam Integer userId) {
-        return likesService.likeVideo(videoId, userId)
-                .map(ApiResponse::success)
-                .orElse(ApiResponse.fail("用户已经点过赞了"));
+    public ApiResponse<String> likeVideo(@RequestParam Integer videoId, @RequestParam Integer userId) {
+        boolean isLiked = likesService.likeVideo(videoId, userId);
+        if (isLiked) {
+            return ApiResponse.success("点赞成功");
+        } else {
+            return ApiResponse.fail("已经点赞过了");
+        }
     }
     /**
      * 处理取消点赞的请求。
