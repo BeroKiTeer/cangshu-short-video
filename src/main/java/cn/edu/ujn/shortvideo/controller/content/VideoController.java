@@ -69,6 +69,7 @@ public class VideoController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int pageSize) {
         IPage<Videos> videoPage = videoService.getPagedVideos(page, pageSize, userId);
+
         return ApiResponse.success(videoPage);
     }
 }

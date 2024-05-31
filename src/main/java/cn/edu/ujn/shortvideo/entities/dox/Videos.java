@@ -21,26 +21,15 @@ import java.time.LocalDateTime;
 public class Videos implements Serializable {
     @TableId
     private Integer videoId;
-
     private Integer userId;
-
     private String title;
-
     private String description;
-
     private String videoUrl;
-
     private String thumbnailUrl;
-
     private String status;
-
-
     private Integer duration;
-
     private String tags;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
     @Serial

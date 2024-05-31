@@ -11,6 +11,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface LikesMapper extends BaseMapper<Likes> {
 
+    Likes findByVideoIdAndUserId(Integer videoId, Integer userId);
+
+    Likes save(Likes like);
+
+    boolean existsById(Integer likeId);
+
 }
 
 

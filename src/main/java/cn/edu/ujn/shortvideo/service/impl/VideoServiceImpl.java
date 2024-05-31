@@ -1,6 +1,5 @@
 package cn.edu.ujn.shortvideo.service.impl;
 
-
 import cn.edu.ujn.shortvideo.common.exception.ResourceNotFoundException;
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
 import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
@@ -112,5 +111,6 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
         queryWrapper.eq("user_id", userId);
         // 执行分页查询
         return videosMapper.selectPage(page, queryWrapper);
+
     }
 }
