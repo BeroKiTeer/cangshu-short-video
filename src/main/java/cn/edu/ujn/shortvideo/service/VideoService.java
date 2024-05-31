@@ -35,6 +35,7 @@ public interface VideoService {
      * @param videoId 要删除的视频ID
      */
     void deleteVideo(int videoId);
+    
 
     /**
      * 获取特定用户的视频分页列表

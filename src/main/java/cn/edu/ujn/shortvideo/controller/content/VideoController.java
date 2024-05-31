@@ -25,10 +25,19 @@ public class VideoController {
      */
     @PostMapping
     public ApiResponse<Videos> uploadVideo(
+            @RequestParam int userId,
             @RequestParam String title,
             @RequestParam String description,
+            @RequestParam String tags,
             @RequestParam MultipartFile videoFile) {
-        Videos video = videoService.uploadVideo(title, description, videoFile);
+        VideoDTO videoDTO = VideoDTO.builder()
+                .userId(userId)
+                .title(title)
+                .description(description)
+                .tags(tags)
+                .videoFile(videoFile)
+                .build();
+        Videos video = videoService.uploadVideo(videoDTO);
         return ApiResponse.success(video);
     }
 
