@@ -61,13 +61,15 @@ public class VideoController {
     }
 
     /**
-     * 获取视频列表，支持分页
+     * 新增分页查询接口
      */
     @GetMapping
     public ApiResponse<IPage<Videos>> getPagedVideos(
-            @RequestParam(defaultValue = "1") int currentPage,
+            @RequestParam int userId,
+            @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int pageSize) {
-        IPage<Videos> videoPage = videoService.getPagedVideos(currentPage, pageSize);
+        IPage<Videos> videoPage = videoService.getPagedVideos(page, pageSize, userId);
+
         return ApiResponse.success(videoPage);
     }
 }

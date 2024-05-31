@@ -11,8 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 
- * @TableName video_views
+ *
  */
 @Data
 @NoArgsConstructor

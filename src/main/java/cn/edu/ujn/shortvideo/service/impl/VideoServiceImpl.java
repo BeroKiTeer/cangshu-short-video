@@ -103,22 +103,14 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
      *  实现分页查询方法
      */
     @Override
-    public IPage<Videos> getPagedVideos(int currentPage, int pageSize) {
-        // 创建分页对象
-        Page<Videos> page = new Page<>(currentPage, pageSize);
-        // 执行分页查询
-        IPage<Videos> videoPage = videosMapper.selectPage(page, null);
-        return videoPage;
-    }
-    // 实现分页查询方法
-    @Override
     public IPage<Videos> getPagedVideos(int currentPage, int pageSize, int userId) {
         // 创建分页对象
         Page<Videos> page = new Page<>(currentPage, pageSize);
-        // 执行分页查询
+        // 创建查询条件
         QueryWrapper<Videos> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
-        IPage<Videos> videoPage = videosMapper.selectPage(page, queryWrapper);
-        return videoPage;
+        // 执行分页查询
+        return videosMapper.selectPage(page, queryWrapper);
+
     }
 }

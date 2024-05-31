@@ -16,5 +16,6 @@ public interface VideoService {
     Videos updateVideo(VideoDTO videoDTO);
     void deleteVideo(int videoId);
     // 新增分页查询方法
-    IPage<Videos> getPagedVideos(int currentPage, int pageSize);
+
+    IPage<Videos> getPagedVideos(int currentPage, int pageSize, int userId);
 }
