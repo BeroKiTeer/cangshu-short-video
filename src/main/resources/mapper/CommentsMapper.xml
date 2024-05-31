@@ -6,8 +6,11 @@
 <!-- mapper接口不能重载 -->
 <mapper namespace="cn.edu.ujn.shortvideo.mapper.CommentsMapper">
 
-    <select id="selectCommentsByVideoIdWithPagination" resultType="cn.edu.ujn.shortvideo.entities.dox.Comments">
-        SELECT * FROM comments WHERE video_id = #{videoId} AND status = 'visible'
+    <select id="selectCommentsByPage" resultType="cn.edu.ujn.shortvideo.entities.dox.Comments">
+        SELECT * FROM comments
+        WHERE video_id = #{videoId}
+        ORDER BY created_at DESC
+        LIMIT #{offset}, #{size}
     </select>
 
 </mapper>
