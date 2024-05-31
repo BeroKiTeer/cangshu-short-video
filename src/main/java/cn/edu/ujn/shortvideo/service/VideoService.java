@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface VideoService {
     Videos uploadVideo(String title, String description, MultipartFile videoFile);
     Videos getVideoDetails(int videoId);
-    Videos updateVideo(int videoId, VideoDTO videoDTO);
+    Videos updateVideo(VideoDTO videoDTO);
     void deleteVideo(int videoId);
     // 新增分页查询方法
     IPage<Videos> getPagedVideos(int currentPage, int pageSize);

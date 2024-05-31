@@ -62,8 +62,8 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
     /**
      * 更新视频
      */
-    public Videos updateVideo(int videoId, VideoDTO videoDTO) {
-        Videos existingVideo = videosMapper.selectById(videoId);
+    public Videos updateVideo(VideoDTO videoDTO) {
+        Videos existingVideo = videosMapper.selectById(videoDTO.getVideoId());
         if (existingVideo == null) {
             throw new ResourceNotFoundException("Video not found");
         }
@@ -81,7 +81,7 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
                 .updatedAt(LocalDateTime.now())
                 .build();
 
-        videosMapper.updateById(updatedVideo);
+        int ret = videosMapper.updateById(updatedVideo);
 
         return updatedVideo;
     }
