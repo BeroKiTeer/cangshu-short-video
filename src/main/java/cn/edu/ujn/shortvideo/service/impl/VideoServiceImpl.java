@@ -5,6 +5,7 @@ import cn.edu.ujn.shortvideo.entities.dox.Videos;
 import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import cn.edu.ujn.shortvideo.mapper.VideosMapper;
 import cn.edu.ujn.shortvideo.service.VideoService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -107,6 +108,17 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
         Page<Videos> page = new Page<>(currentPage, pageSize);
         // 执行分页查询
         IPage<Videos> videoPage = videosMapper.selectPage(page, null);
+        return videoPage;
+    }
+    // 实现分页查询方法
+    @Override
+    public IPage<Videos> getPagedVideos(int currentPage, int pageSize, int userId) {
+        // 创建分页对象
+        Page<Videos> page = new Page<>(currentPage, pageSize);
+        // 执行分页查询
+        QueryWrapper<Videos> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        IPage<Videos> videoPage = videosMapper.selectPage(page, queryWrapper);
         return videoPage;
     }
 }
