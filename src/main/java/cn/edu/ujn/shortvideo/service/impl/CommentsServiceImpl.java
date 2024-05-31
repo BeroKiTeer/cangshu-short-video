@@ -59,6 +59,7 @@ public class CommentsServiceImpl implements CommentsService {
      */
     @Override
     public Comments updateComment(Comments comment, Integer userId) {
+        // 检查原有评论是否存在，并且是否由提供的用户ID创建
         Comments existingComment = commentsMapper.selectById(comment.getCommentId());
         if (existingComment != null && existingComment.getUserId().equals(userId)) {
             commentsMapper.updateById(comment);
