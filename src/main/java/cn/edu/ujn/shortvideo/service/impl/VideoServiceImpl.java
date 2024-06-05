@@ -23,7 +23,7 @@ public class VideoServiceImpl extends ServiceImpl<VideosMapper, Videos> implemen
     private VideosMapper videosMapper;
 
     /**
-     * 根据视频ID获取视频详情
+     * 根据视频ID来获取视频详情
      */
     @Override
     public Videos uploadVideo(String title, String description, MultipartFile videoFile) {

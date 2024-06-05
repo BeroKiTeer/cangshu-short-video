@@ -5,7 +5,7 @@ import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * VideoService接口定义了用于处理视频操作的方法。
+ * VideoService接口定义用于处理视频操作的方法。
  * 该接口包括视频上传、获取视频详情、更新视频信息和删除视频等功能。
  * @author ff
  */
