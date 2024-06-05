@@ -17,7 +17,7 @@ public interface VideoService {
     Videos uploadVideo(VideoDTO videoDTO);
 
     /**
-     * 根据ID获取视频详情
+     * 根据ID来获取视频详情
      * @param videoId 视频ID
      * @return 视频详情
      */

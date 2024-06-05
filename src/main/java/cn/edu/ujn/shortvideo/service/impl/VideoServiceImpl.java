@@ -77,7 +77,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     /**
-     * 更新现有视频
+     * 更新现有的视频
      * @param videoDTO 包含更新后视频详情的数据传输对象
      * @return 更新后的视频详情
      */
