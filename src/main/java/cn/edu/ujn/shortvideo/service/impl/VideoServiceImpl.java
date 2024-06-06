@@ -30,9 +30,11 @@ public class VideoServiceImpl implements VideoService {
     private UsersMapper usersMapper; // 假设你有一个 UsersMapper 用于操作用户数据
 
     /**
-     * 上传新视频啦
+     * 上传新视频
      * @param videoDTO 包含视频详情的数据传输对象
      * @return 上传的视频详情
+     * 注意
+     * 1.学习builder()方法
      */
     @Override
     public Videos uploadVideo(VideoDTO videoDTO) {
@@ -63,7 +65,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     /**
-     * 根据ID获取视频详情
+     * 根据ID获取视频详情，
      * @param videoId 视频ID
      * @return 视频详情
      */
