@@ -1,8 +1,10 @@
 package cn.edu.ujn.shortvideo.controller.content;
+
 import cn.edu.ujn.shortvideo.common.result.ApiResponse;
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
 import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import cn.edu.ujn.shortvideo.service.VideoService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,15 +25,24 @@ public class VideoController {
      */
     @PostMapping
     public ApiResponse<Videos> uploadVideo(
+            @RequestParam int userId,
             @RequestParam String title,
             @RequestParam String description,
+            @RequestParam String tags,
             @RequestParam MultipartFile videoFile) {
-        Videos video = videoService.uploadVideo(title, description, videoFile);
+        VideoDTO videoDTO = VideoDTO.builder()
+                .userId(userId)
+                .title(title)
+                .description(description)
+                .tags(tags)
+                .videoFile(videoFile)
+                .build();
+        Videos video = videoService.uploadVideo(videoDTO);
         return ApiResponse.success(video);
     }
 
     /**
-     * 根据视频ID获取视频详细信息
+     * 根据视频ID来获取视频详细信息
      */
     @GetMapping("/{videoId}")
     public ApiResponse<Videos> getVideoDetails(@PathVariable int videoId) {
@@ -57,5 +68,18 @@ public class VideoController {
     public ApiResponse<String> deleteVideo(@PathVariable int videoId) {
         videoService.deleteVideo(videoId);
         return ApiResponse.success("Video deleted successfully");
+    }
+
+    /**
+     * 新增分页查询接口
+     */
+    @GetMapping
+    public ApiResponse<IPage<Videos>> getPagedVideos(
+            @RequestParam int userId,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        IPage<Videos> videoPage = videoService.getPagedVideos(page, pageSize, userId);
+
+        return ApiResponse.success(videoPage);
     }
 }
