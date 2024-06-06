@@ -30,7 +30,7 @@ public class VideoServiceImpl implements VideoService {
     private UsersMapper usersMapper; // 假设你有一个 UsersMapper 用于操作用户数据
 
     /**
-     * 上传新视频
+     * 上传新视频啦
      * @param videoDTO 包含视频详情的数据传输对象
      * @return 上传的视频详情
      */
