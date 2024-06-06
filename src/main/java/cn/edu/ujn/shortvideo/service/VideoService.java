@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
- * 视频服务接口
+ * VideoService接口定义用于处理视频操作的方法。
+ * 该接口包括视频上传、获取视频详情、更新视频信息和删除视频等功能。
+ * @author ff
  */
 public interface VideoService {
     /**
