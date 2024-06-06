@@ -53,20 +53,28 @@ public class CommentsServiceImpl implements CommentsService {
 
     /**
      * 更新评论信息。
+     * 该方法用于根据提供的评论对象和用户ID来更新已存在的评论记录。如果评论存在且由指定用户创建，则更新评论并返回更新后的评论对象；否则，返回null。
      *
-     * @param comment 包含更新后评论信息的对象。
-     * @return 返回更新后的评论对象。
+     * @param comment 包含更新后评论信息的对象，包括评论ID等标识信息。
+     * @param userId  指定用户的ID，用于验证评论的归属权。
+     * @return 返回更新后的评论对象，如果评论不存在或用户无权更新，则返回null。
      */
     @Override
     public Comments updateComment(Comments comment, Integer userId) {
+        // 根据评论ID查询数据库中是否存在对应的评论记录
         // 检查原有评论是否存在，并且是否由提供的用户ID创建
         Comments existingComment = commentsMapper.selectById(comment.getCommentId());
+        // 检查评论是否存在且属于指定用户
         if (existingComment != null && existingComment.getUserId().equals(userId)) {
+            // 如果条件满足，则更新数据库中的评论记录
             commentsMapper.updateById(comment);
+            // 查询更新后的评论记录并返回
             return commentsMapper.selectById(comment.getCommentId());
         }
+        // 如果评论不存在或用户无权更新，则返回null
         return null;
     }
+
 
 
     /**
