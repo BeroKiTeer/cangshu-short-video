@@ -13,13 +13,11 @@ public class FollowsServiceImpl implements FollowsService {
     private FollowsMapper followsMapper;
 
     @Override
-
     public void follow(int followerId, int followedId) {
         followsMapper.insertFollow(followerId, followedId);
     }
 
     @Override
-
     public void unfollow(int followId) {
         followsMapper.deleteFollow(followId);
     }
