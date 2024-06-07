@@ -1,6 +1,7 @@
 package cn.edu.ujn.shortvideo.service;
 
 import cn.edu.ujn.shortvideo.entities.dox.Users;
+import cn.edu.ujn.shortvideo.entities.dto.UsersDTO;
 import cn.edu.ujn.shortvideo.entities.dto.UsersLoginDTO;
 import cn.edu.ujn.shortvideo.entities.dto.UsersRegisterDTO;
 
@@ -30,4 +31,6 @@ public interface UserService {
      * @param usersRegisterDTO
      */
     void register(UsersRegisterDTO usersRegisterDTO);
+
+    Users updateUserInfo(UsersDTO usersDTO);
 }
