@@ -12,11 +12,20 @@ public class FollowsServiceImpl implements FollowsService {
     @Resource
     private FollowsMapper followsMapper;
 
+    /**
+     *
+     * @param followerId
+     * @param followedId
+     */
     @Override
     public void follow(int followerId, int followedId) {
         followsMapper.insertFollow(followerId, followedId);
     }
 
+    /**
+     *
+     * @param followId
+     */
     @Override
     public void unfollow(int followId) {
         followsMapper.deleteFollow(followId);
