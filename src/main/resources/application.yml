@@ -25,3 +25,6 @@ cn:
         user-secret-key: jintsangshu
         user-ttl: 7200000
         user-token-name: authentication
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml

@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 #!**/src/test/**/target/
 **/application-dev.yml
+/src/main/resources/static/videos
 
 ### STS ###
 .apt_generated
