@@ -93,4 +93,11 @@ public class UserController {
         return ApiResponse.success();
     }
 
+    public ApiResponse<Users> updateUserInfo(@RequestBody UsersDTO usersDTO) {
+        Users users = userService.updateUserInfo(usersDTO);
+        if(users == null) {
+            return ApiResponse.fail(MessageConstant.USER_NOT_EXIST);
+        }
+        return ApiResponse.success(users);
+    }
 }
