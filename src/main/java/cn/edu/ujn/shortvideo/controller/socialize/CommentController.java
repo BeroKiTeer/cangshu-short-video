@@ -3,8 +3,6 @@ package cn.edu.ujn.shortvideo.controller.socialize;
 import cn.edu.ujn.shortvideo.common.result.ApiResponse;
 import cn.edu.ujn.shortvideo.entities.dox.Comments;
 import cn.edu.ujn.shortvideo.service.CommentsService;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,21 +80,22 @@ public class CommentController {
     }
 
     /**
-     * 根据视频ID和分页参数获取评论列表的API响应。
+     * 根据视频ID和分页信息获取评论列表。
      *
-     * @param videoId 视频的唯一标识符，用于查询该视频的评论。
-     * @param pageNo 请求的页码，默认为1，表示从第一页开始。
-     * @param pageSize 每页显示的评论数量，默认为10。
-     * @return ApiResponse<IPage<Comments>> 包含评论分页信息的API响应对象。
+     * @param videoId 视频ID，用于指定获取哪个视频的评论。
+     * @param page 请求的页码，默认为第1页。
+     * @param size 每页显示的评论数量，默认为10条。
+     * @return ApiResponse<List<Comments>> 包含评论列表的API响应对象，成功时comments字段包含评论列表。
      */
-    @GetMapping("/video/{videoId}/page")
-    public ApiResponse<IPage<Comments>> getCommentsByVideoIdWithPagination(
-            @PathVariable int videoId,
-            @RequestParam(defaultValue = "1") int pageNo,
-            @RequestParam(defaultValue = "10") int pageSize) {
-
-        Page<Comments> page = new Page<>(pageNo, pageSize);
-        IPage<Comments> commentsPage = commentsService.getCommentsByVideoIdWithPagination(page, videoId);
-        return ApiResponse.success(commentsPage);
+    @GetMapping("/comments")
+    public ApiResponse<List<Comments>> getCommentsByPage(
+            @RequestParam int videoId,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        // 通过视频ID、页码和每页数量，从服务层获取评论列表
+        List<Comments> comments = commentsService.getCommentsByPage(videoId, page, size);
+        // 构建并返回一个包含评论列表的成功响应
+        return ApiResponse.success(comments);
     }
 }
