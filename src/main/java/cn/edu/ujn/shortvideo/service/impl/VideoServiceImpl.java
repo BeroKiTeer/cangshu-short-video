@@ -35,6 +35,7 @@ public class VideoServiceImpl implements VideoService {
      * @return 上传的视频详情
      * 注意
      * 1.学习builder()方法
+     * Builder 模式通过链式方法调用来创建对象，提供了一个灵活且可读性强的对象构建方式。
      */
     @Override
     public Videos uploadVideo(VideoDTO videoDTO) {
@@ -49,16 +50,16 @@ public class VideoServiceImpl implements VideoService {
 
         // 创建视频实体
         Videos video = Videos.builder()
-                .userId(videoDTO.getUserId())
-                .title(videoDTO.getTitle())
-                .description(videoDTO.getDescription())
-                .tags(videoDTO.getTags())
-                .videoUrl(videoUrl)
-                .thumbnailUrl(thumbnailUrl)
-                .status("public")
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .build();
+                .userId(videoDTO.getUserId())                // 设置用户ID
+                .title(videoDTO.getTitle())                  // 设置视频标题
+                .description(videoDTO.getDescription())      // 设置视频描述
+                .tags(videoDTO.getTags())                    // 设置视频标签
+                .videoUrl(videoUrl)                          // 设置视频URL
+                .thumbnailUrl(thumbnailUrl)                  // 设置缩略图URL
+                .status("public")                            // 设置视频状态（公开）
+                .createdAt(LocalDateTime.now())              // 设置视频创建时间
+                .updatedAt(LocalDateTime.now())              // 设置视频更新时间
+                .build();                                    // 构建视频实体
 
         videosMapper.insert(video);
         return video;
