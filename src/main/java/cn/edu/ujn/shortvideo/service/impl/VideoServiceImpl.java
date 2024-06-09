@@ -33,8 +33,6 @@ public class VideoServiceImpl implements VideoService {
      * 上传新视频
      * @param videoDTO 包含视频详情的数据传输对象
      * @return 上传的视频详情
-     * 注意
-     * 1.学习builder()方法
      * Builder 模式通过链式方法调用来创建对象，提供了一个灵活且可读性强的对象构建方式。
      */
     @Override
@@ -83,6 +81,9 @@ public class VideoServiceImpl implements VideoService {
      * 更新现有视频
      * @param videoDTO 包含更新后视频详情的数据传输对象
      * @return 更新后的视频详情
+     * 接收一个包含视频更新信息的VideoDTO对象，
+     * 找到对应的视频记录，更新其信息，并将更新后的视频对象返回。
+     * 如果找不到对应的视频记录，将抛出异常。
      */
     @Override
     public Videos updateVideo(VideoDTO videoDTO) {
