@@ -13,6 +13,7 @@ public interface VideoService {
      * 上传新视频
      * @param videoDTO 包含视频详情的数据传输对象
      * @return 上传的视频详情
+     * (VideoDTO videoDTO)和下面的(int videoId)
      */
     Videos uploadVideo(VideoDTO videoDTO);
 

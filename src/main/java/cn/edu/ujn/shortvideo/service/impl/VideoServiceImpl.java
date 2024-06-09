@@ -67,6 +67,7 @@ public class VideoServiceImpl implements VideoService {
      * 根据ID获取视频详情，
      * @param videoId 视频ID
      * @return 视频详情
+     * ？？？？？这个get以后干什么
      */
     @Override
     public Videos getVideoDetails(int videoId) {
@@ -87,11 +88,19 @@ public class VideoServiceImpl implements VideoService {
      */
     @Override
     public Videos updateVideo(VideoDTO videoDTO) {
+        /**调用videosMapper的selectById方法，根据videoDTO中的视频ID查找现有的视频对象。
+         * 如果找到，就将其赋值给existingVideo变量。
+        */
         Videos existingVideo = videosMapper.selectById(videoDTO.getVideoId());
+        //检查是否找到了视频对象。
         if (existingVideo == null) {
             throw new ResourceNotFoundException("视频不存在");
         }
-
+        /**
+         * 创建一个新的Videos对象构建器
+         * 并将existingVideo的属性值复制到构建器中。
+         * 这样，updatedVideo变量将包含更新后的视频对象。
+         */
         Videos updatedVideo = Videos.builder()
                 .videoId(existingVideo.getVideoId())
                 .userId(existingVideo.getUserId())
@@ -141,6 +150,7 @@ public class VideoServiceImpl implements VideoService {
      * 处理文件上传
      * @param file 要上传的Multipart文件
      * @return 上传文件的URL
+     * ？？？？这个和下面那个干啥的？
      */
     private String uploadFile(MultipartFile file) {
         // 实现文件上传逻辑并返回文件URL
