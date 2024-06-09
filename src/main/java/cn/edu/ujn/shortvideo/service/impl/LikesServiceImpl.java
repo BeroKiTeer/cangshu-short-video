@@ -13,16 +13,23 @@ import java.time.LocalDateTime;
 public class LikesServiceImpl implements LikesService {
     @Resource
     private LikesMapper likesMapper;
+    /**
+     * 根据ID获取点赞信息。
+     *
+     * @param id 点赞记录的唯一标识符。这是一个整数类型，非空。
+     * @return 返回与给定ID匹配的点赞信息。如果找不到匹配的记录，则返回null。
+     */
     @Override
     public Likes getlikesById(Integer id) {
         return likesMapper.selectById(id);
     }
 
     /**
+     * 用户点赞视频接口。
      *
-     * @param videoId
-     * @param userId
-     * @return
+     * @param videoId 视频的唯一标识符。
+     * @param userId 用户的唯一标识符。
+     * @return 如果点赞成功，返回true；如果用户已经点赞过该视频，返回false。
      */
     @Override
     public boolean likeVideo(Integer videoId, Integer userId) {
@@ -42,14 +49,21 @@ public class LikesServiceImpl implements LikesService {
     }
 
     /**
+     * 取消点赞视频。
      *
-     * @param likeId
-     * @return
+     * 本方法用于取消对特定视频的点赞。它首先检查给定的点赞ID是否存在，
+     * 如果存在，则删除该点赞记录，并返回true表示取消点赞成功；
+     * 如果不存在，则返回false，表示取消点赞失败，可能是因为该点赞ID不存在。
+     *
+     * @param likeId 点赞的唯一标识ID。这个ID用于在数据库中定位到特定的点赞记录。
+     * @return 如果取消点赞成功，返回true；如果取消点赞失败，返回false。
      */
     @Override
     public boolean unlikeVideo(Integer likeId) {
+        // 检查点赞ID是否存在
         // 根据likeId取消点赞
         if (likesMapper.existsById(likeId)) {
+            // 如果点赞ID存在，则删除该点赞记录
             likesMapper.deleteById(likeId);
             return true;
         } else {
