@@ -85,27 +85,35 @@ public class VideoServiceImpl implements VideoService {
      */
     @Override
     public Videos updateVideo(VideoDTO videoDTO) {
+        // 从数据库中通过视频ID获取现有的视频信息
         Videos existingVideo = videosMapper.selectById(videoDTO.getVideoId());
+
+        // 如果视频不存在，抛出资源未找到异常
         if (existingVideo == null) {
             throw new ResourceNotFoundException("视频不存在");
         }
 
+        // 创建一个新的视频对象，使用传入的DTO更新必要的字段，并保留现有视频的其他字段
         Videos updatedVideo = Videos.builder()
-                .videoId(existingVideo.getVideoId())
-                .userId(existingVideo.getUserId())
-                .title(videoDTO.getTitle())
-                .description(videoDTO.getDescription())
-                .status(videoDTO.getStatus())
-                .thumbnailUrl(existingVideo.getThumbnailUrl())
-                .duration(existingVideo.getDuration())
-                .tags(existingVideo.getTags())
-                .createdAt(existingVideo.getCreatedAt())
-                .updatedAt(LocalDateTime.now())
+                .videoId(existingVideo.getVideoId())  // 保留现有视频ID
+                .userId(existingVideo.getUserId())    // 保留现有用户ID
+                .title(videoDTO.getTitle())           // 更新视频标题
+                .description(videoDTO.getDescription()) // 更新视频描述
+                .status(videoDTO.getStatus())         // 更新视频状态
+                .thumbnailUrl(existingVideo.getThumbnailUrl()) // 保留现有缩略图URL
+                .duration(existingVideo.getDuration()) // 保留现有视频时长
+                .tags(existingVideo.getTags())         // 保留现有视频标签
+                .createdAt(existingVideo.getCreatedAt()) // 保留视频创建时间
+                .updatedAt(LocalDateTime.now())         // 更新视频更新时间为当前时间
                 .build();
 
+        // 将更新后的视频对象保存到数据库中
         videosMapper.updateById(updatedVideo);
+
+        // 返回更新后的视频对象
         return updatedVideo;
     }
+
 
     /**
      * 根据ID删除视频
