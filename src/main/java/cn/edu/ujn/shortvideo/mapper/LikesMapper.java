@@ -22,10 +22,10 @@ public interface LikesMapper extends BaseMapper<Likes> {
     @Insert("INSERT INTO likes (video_id, user_id, created_at) VALUES (#{like.videoId}, #{like.userId}, #{like.createdAt})")
     int save(@Param("like") Likes like);
 
-    @Select("SELECT COUNT(*) > 0 FROM likes WHERE id = #{likeId}")
+    @Select("SELECT COUNT(*) > 0 FROM likes WHERE like_id = #{likeId}")
     boolean existsById(@Param("likeId") Integer likeId);
 
-    @Delete("DELETE FROM likes WHERE id = #{likeId}")
+    @Delete("DELETE FROM likes WHERE like_id= #{likeId}")
     int deleteById(@Param("likeId") Integer likeId);
 }
 
