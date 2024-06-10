@@ -23,7 +23,7 @@ public class VideoController {
     /**
      * 上传视频
      * ??????获取的这些信息是怎么来的，哪个表是参考/哪个文件是参考？
-     * upload和update有什么区别
+     * upload和update有什么区别？？？？
      */
     @PostMapping//表示该方法将处理HTTP POST请求。
     public ApiResponse<Videos> uploadVideo(
