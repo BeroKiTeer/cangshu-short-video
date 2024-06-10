@@ -2,6 +2,9 @@ package cn.edu.ujn.shortvideo.mapper;
 
 import cn.edu.ujn.shortvideo.entities.dox.Likes;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
 * @author dell
@@ -16,6 +19,11 @@ public interface LikesMapper extends BaseMapper<Likes> {
     Likes save(Likes like);
 
     boolean existsById(Integer likeId);
+
+   @Select("SELECT * FROM likes WHERE video_id = #{videoId}")
+    List<Likes> selectLikesByVideoId(int videoId);
+
+
 
 }
 

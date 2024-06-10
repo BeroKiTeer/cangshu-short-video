@@ -2,10 +2,12 @@ package cn.edu.ujn.shortvideo.service.impl;
 
 import cn.edu.ujn.shortvideo.common.exception.ResourceNotFoundException;
 import cn.edu.ujn.shortvideo.entities.dox.Comments;
+import cn.edu.ujn.shortvideo.entities.dox.Likes;
 import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
 
 import cn.edu.ujn.shortvideo.mapper.CommentsMapper;
+import cn.edu.ujn.shortvideo.mapper.LikesMapper;
 import cn.edu.ujn.shortvideo.mapper.UsersMapper;
 import cn.edu.ujn.shortvideo.mapper.VideosMapper;
 import cn.edu.ujn.shortvideo.service.VideoService;
@@ -34,6 +36,9 @@ public class VideoServiceImpl implements VideoService {
 
     @Autowired
     private CommentsMapper commentsMapper;
+
+    @Autowired
+    private LikesMapper likesMapper;
 
     /**
      * 根据视频ID来获取视频详情
@@ -118,6 +123,11 @@ public class VideoServiceImpl implements VideoService {
     public void deleteVideo(int videoId) {
         Videos video = videosMapper.selectById(videoId);
         List<Comments> comments = commentsMapper.selectCommentsByVideoId(videoId);
+        List<Likes> likes = likesMapper.selectLikesByVideoId(videoId);
+
+        for (Likes like : likes) {
+            likesMapper.deleteById(like.getLikeId());
+        }
         for (Comments comment : comments) {
             commentsMapper.deleteById(comment.getCommentId());
         }
