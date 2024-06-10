@@ -67,7 +67,7 @@ class VideoControllerTest {
 
     @Test
     void getPagedVideos() {
-        ApiResponse<IPage<Videos>> pagedVideos = videoController.getPagedVideos(1, 1, 5);
+        ApiResponse<IPage<Videos>> pagedVideos = videoController.getPagedVideos(1, 2, 5);
         System.out.println("pagedVideos = " + pagedVideos.getData());
         IPage<Videos> data = pagedVideos.getData();
         List<Videos> records = data.getRecords();
