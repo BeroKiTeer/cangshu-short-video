@@ -21,7 +21,7 @@ public class VideoController {
     private VideoService videoService;
 
     /**
-     * 上传视频
+     * 上传视频~~~~
      */
     @PostMapping//表示该方法将处理HTTP POST请求。
     public ApiResponse<Videos> uploadVideo(
