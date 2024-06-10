@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ import java.util.List;
  * 视频服务实现类
  */
 @Service
+@Transactional
 public class VideoServiceImpl implements VideoService {
 
     @Autowired
@@ -134,6 +136,10 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void deleteVideo(int videoId) {
         Videos video = videosMapper.selectById(videoId);
+        if (video == null) {
+            throw new ResourceNotFoundException("视频不存在");
+        }
+
         List<Comments> comments = commentsMapper.selectCommentsByVideoId(videoId);
         List<Likes> likes = likesMapper.selectLikesByVideoId(videoId);
 
@@ -143,9 +149,7 @@ public class VideoServiceImpl implements VideoService {
         for (Comments comment : comments) {
             commentsMapper.deleteById(comment.getCommentId());
         }
-        if (video == null) {
-            throw new ResourceNotFoundException("视频不存在");
-        }
+
         videosMapper.deleteById(videoId);
     }
     /**
