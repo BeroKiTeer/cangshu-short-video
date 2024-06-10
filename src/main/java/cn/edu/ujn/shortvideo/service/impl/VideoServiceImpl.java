@@ -32,6 +32,9 @@ public class VideoServiceImpl implements VideoService {
     @Autowired
     private UsersMapper usersMapper; // 假设你有一个 UsersMapper 用于操作用户数据
 
+    @Autowired
+    private CommentsMapper commentsMapper;
+
     /**
      * 根据视频ID来获取视频详情
      */
@@ -111,8 +114,6 @@ public class VideoServiceImpl implements VideoService {
      * @param videoId 要删除的视频ID
      */
 
-    @Autowired
-    private CommentsMapper commentsMapper;
     @Override
     public void deleteVideo(int videoId) {
         Videos video = videosMapper.selectById(videoId);
