@@ -21,15 +21,21 @@ public class VideoController {
     private VideoService videoService;
 
     /**
-     * 上传视频
+     * 上传视频~~~~
      */
-    @PostMapping
+    @PostMapping//表示该方法将处理HTTP POST请求。
     public ApiResponse<Videos> uploadVideo(
-            @RequestParam int userId,
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam String tags,
+            @RequestParam int userId,//这是方法的一个参数,表示该参数将从请求的查询参数中获取，参数名为userId，类型为int。
+            @RequestParam String title,//从请求中获取视频的标题。
+            @RequestParam String description,//获取视频的描述。
+            @RequestParam String tags,//获取视频的标签。
             @RequestParam MultipartFile videoFile) {
+        /**
+         * 1.获取上传的视频文件。MultipartFile是Spring MVC提供的一个接口，用于表示上传的文件。
+         * 这里使用@RequestParam注解来获取上传的文件，并将其赋值给videoFile变量。
+         * 2.创建一个VideoDTO对象的构建器，并设置视频的属性，
+         * 包括用户ID、标题、描述、标签和视频文件，然后构建并返回VideoDTO对象。
+         */
         VideoDTO videoDTO = VideoDTO.builder()
                 .userId(userId)
                 .title(title)
@@ -37,7 +43,12 @@ public class VideoController {
                 .tags(tags)
                 .videoFile(videoFile)
                 .build();
+        /**
+         * 用videoService服务的uploadVideo方法，传入构建好的VideoDTO对象，
+         * 该方法负责实际的视频上传逻辑，并将上传后的视频对象返回。
+         */
         Videos video = videoService.uploadVideo(videoDTO);
+        //返回一个成功的响应，其中包含上传的视频对象。
         return ApiResponse.success(video);
     }
 
@@ -74,12 +85,17 @@ public class VideoController {
      * 新增分页查询接口
      */
     @GetMapping
+    //表示返回一个包含分页视频列表
     public ApiResponse<IPage<Videos>> getPagedVideos(
-            @RequestParam int userId,
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int pageSize) {
+            @RequestParam int userId,//表示该参数将从请求的查询参数中获取，参数名为userId，类型为int。
+            @RequestParam(defaultValue = "1") int page,//表示如果没有提供page参数，将默认使用值1。参数类型为int。
+            @RequestParam(defaultValue = "5") int pageSize) {
+        /**
+         * 调用videoService服务的getPagedVideos方法，传入页码page、每页大小pageSize和用户IDuserId，
+         * 该方法负责根据这些参数获取分页的视频列表，并将结果返回。
+         */
         IPage<Videos> videoPage = videoService.getPagedVideos(page, pageSize, userId);
 
-        return ApiResponse.success(videoPage);
+        return ApiResponse.success(videoPage);//返回一个成功的响应，其中包含分页的视频列表。
     }
 }

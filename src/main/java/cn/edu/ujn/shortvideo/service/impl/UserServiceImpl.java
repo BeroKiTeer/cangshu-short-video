@@ -104,4 +104,17 @@ public class UserServiceImpl implements UserService {
 
         usersMapper.insert(users);
     }
+
+    /**
+     * 更新用户个人资料
+     * @param usersDTO
+     * @return
+     */
+    @Override
+    public Users updateUserInfo(UsersDTO usersDTO) {
+        Users users = new Users();
+        BeanUtils.copyProperties(usersDTO, users);
+        usersMapper.updateById(users);
+        return usersMapper.selectById(users.getUserId());
+    }
 }
