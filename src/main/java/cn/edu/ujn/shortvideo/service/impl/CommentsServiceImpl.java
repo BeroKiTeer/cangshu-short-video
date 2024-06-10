@@ -3,8 +3,6 @@ package cn.edu.ujn.shortvideo.service.impl;
 import cn.edu.ujn.shortvideo.entities.dox.Comments;
 import cn.edu.ujn.shortvideo.mapper.CommentsMapper;
 import cn.edu.ujn.shortvideo.service.CommentsService;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +59,7 @@ public class CommentsServiceImpl implements CommentsService {
      */
     @Override
     public Comments updateComment(Comments comment, Integer userId) {
+        // 检查原有评论是否存在，并且是否由提供的用户ID创建
         Comments existingComment = commentsMapper.selectById(comment.getCommentId());
         if (existingComment != null && existingComment.getUserId().equals(userId)) {
             commentsMapper.updateById(comment);
@@ -69,18 +68,23 @@ public class CommentsServiceImpl implements CommentsService {
         return null;
     }
 
+
     /**
-     * 根据视频ID和分页参数获取评论列表。
-     *
-     * @param page 分页参数，包含当前页数和每页的记录数。
-     * @param videoId 视频的唯一标识符。
-     * @return 返回一个IPage<Comments>对象，包含当前页的评论列表。
+     * 根据视频ID和分页信息获取评论列表
+     * @param videoId 视频ID，用于指定获取哪个视频的评论
+     * @param page 请求的页码，用于计算偏移量和限定返回评论的数量
+     * @param size 每页显示的评论数量
+     * @return 返回一个评论列表，该列表包含了指定视频ID、页码和每页数量的评论信息
      */
     @Override
-    public IPage<Comments> getCommentsByVideoIdWithPagination(Page<Comments> page, int videoId) {
-        // 调用commentsMapper，根据视频ID和分页参数查询评论
-        return commentsMapper.selectCommentsByVideoIdWithPagination(page, videoId);
+    public List<Comments> getCommentsByPage(int videoId, int page, int size) {
+        // 计算查询偏移量，用于数据库查询时的偏移定位
+        int offset = (page - 1) * size;
+        // 调用commentsMapper的selectCommentsByPage方法，根据视频ID、偏移量和每页大小获取评论列表
+        return commentsMapper.selectCommentsByPage(videoId, offset, size);
     }
+
+
     /**
      * 检查评论是否为指定用户所有。
      *

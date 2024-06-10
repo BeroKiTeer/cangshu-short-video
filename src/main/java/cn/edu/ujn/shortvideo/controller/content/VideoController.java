@@ -53,7 +53,7 @@ public class VideoController {
     }
 
     /**
-     * 根据视频ID获取视频详细信息
+     * 根据视频ID来获取视频详细信息
      */
     @GetMapping("/{videoId}")
     public ApiResponse<Videos> getVideoDetails(@PathVariable int videoId) {

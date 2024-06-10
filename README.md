@@ -6,8 +6,8 @@
   - [x] 用户注册
   - [x] 用户登录
 
-- [ ] 用户资料管理：用户可以更新个人资料，如用户名、简介、头像等。
-- [ ] 密码重置：用户可以通过邮箱重置密码。
+- [x] 用户资料管理：用户可以更新个人资料，如用户名、简介、头像等。
+- [x] 密码重置：用户可以通过邮箱重置密码。
 - [x] 获取用户信息
 
 ### **视频管理**--ff524.1
@@ -36,7 +36,7 @@
 
 ### **搜索与发现**
 
-- [ ] 标签和分类：视频可以被标记为特定的标签或分类。（分页查询）
+- [x] 标签和分类：视频可以被标记为特定的标签或分类。（分页查询）
 - [ ] 搜索功能：用户可以通过标题、描述、标签搜索视频。
 
 ### **管理员功能**
@@ -376,6 +376,150 @@
   ```
 
 ### 视频内容管理
+
+### 接口信息
+
+#### 1. 上传视频并关联标签
+
+- **Method**: POST
+- **URL**: `/api/videos`
+- **Body**:
+
+```
+json复制代码{
+    "user_id": "int",
+    "title": "string",
+    "description": "string",
+    "tags": ["int"], // 标签ID数组
+    "video_file": "file"
+}
+```
+
+- **Response**:
+
+```
+json复制代码{
+    "video_id": "int",
+    "user_id": "int",
+    "title": "string",
+    "description": "string",
+    "video_url": "string",
+    "thumbnail_url": "string",
+    "status": "string",
+    "duration": "int",
+    "tags": ["int"],
+    "created_at": "datetime",
+    "updated_at": "datetime"
+}
+```
+
+#### 2. 根据ID获取视频详情及其标签
+
+- **Method**: GET
+- **URL**: `/api/videos/{videoId}`
+- **Response**:
+
+```
+json复制代码{
+    "video_id": "int",
+    "user_id": "int",
+    "title": "string",
+    "description": "string",
+    "video_url": "string",
+    "thumbnail_url": "string",
+    "status": "string",
+    "duration": "int",
+    "tags": ["int"],
+    "created_at": "datetime",
+    "updated_at": "datetime"
+}
+```
+
+#### 3. 更新视频及其标签
+
+- **Method**: PUT
+- **URL**: `/api/videos/{videoId}`
+- **Body**:
+
+```
+json复制代码{
+    "title": "string",
+    "description": "string",
+    "tags": ["int"], // 标签ID数组
+    "status": "string"
+}
+```
+
+- **Response**:
+
+```
+json复制代码{
+    "video_id": "int",
+    "user_id": "int",
+    "title": "string",
+    "description": "string",
+    "video_url": "string",
+    "thumbnail_url": "string",
+    "status": "string",
+    "duration": "int",
+    "tags": ["int"],
+    "created_at": "datetime",
+    "updated_at": "datetime"
+}
+```
+
+#### 4. 删除视频及其关联标签
+
+- **Method**: DELETE
+- **URL**: `/api/videos/{videoId}`
+- **Response**:
+
+```
+json复制代码{
+    "message": "Video deleted successfully"
+}
+```
+
+#### 5. 分页查询视频及其标签
+
+- **Method**: GET
+
+- **URL**: `/api/videos`
+
+- Query Parameters
+
+  :
+
+  - `userId`: 用户ID
+  - `page`: 当前页码，默认值为1
+  - `pageSize`: 每页视频数量，默认值为10
+
+- **Response**:
+
+```
+json复制代码{
+    "currentPage": "int",
+    "pageSize": "int",
+    "total": "int",
+    "videos": [
+        {
+            "video_id": "int",
+            "user_id": "int",
+            "title": "string",
+            "description": "string",
+            "video_url": "string",
+            "thumbnail_url": "string",
+            "status": "string",
+            "duration": "int",
+            "tags": ["int"],
+            "created_at": "datetime",
+            "updated_at": "datetime"
+        }
+    ]
+}
+```
+
+通过以上接口信息，你可以实现上传视频并关联标签、获取视频详情及其标签、更新视频及其标签、删除视频及其关联标签，以及分页查询视频及其标签的功能。
 
 **5. 上传视频**
 
