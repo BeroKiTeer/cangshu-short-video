@@ -1,9 +1,11 @@
 package cn.edu.ujn.shortvideo.service.impl;
 
 import cn.edu.ujn.shortvideo.common.exception.ResourceNotFoundException;
+import cn.edu.ujn.shortvideo.entities.dox.Comments;
 import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import cn.edu.ujn.shortvideo.entities.dox.Videos;
 
+import cn.edu.ujn.shortvideo.mapper.CommentsMapper;
 import cn.edu.ujn.shortvideo.mapper.UsersMapper;
 import cn.edu.ujn.shortvideo.mapper.VideosMapper;
 import cn.edu.ujn.shortvideo.service.VideoService;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 视频服务实现类
@@ -107,15 +110,21 @@ public class VideoServiceImpl implements VideoService {
      * 根据ID删除视频
      * @param videoId 要删除的视频ID
      */
+
+    @Autowired
+    private CommentsMapper commentsMapper;
     @Override
     public void deleteVideo(int videoId) {
         Videos video = videosMapper.selectById(videoId);
+        List<Comments> comments = commentsMapper.selectCommentsByVideoId(videoId);
+        for (Comments comment : comments) {
+            commentsMapper.deleteById(comment.getCommentId());
+        }
         if (video == null) {
             throw new ResourceNotFoundException("视频不存在");
         }
         videosMapper.deleteById(videoId);
     }
-
     /**
      * 获取特定用户的视频分页列表
      * @param currentPage 当前页码
