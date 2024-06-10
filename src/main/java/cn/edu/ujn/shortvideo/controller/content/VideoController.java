@@ -22,8 +22,6 @@ public class VideoController {
 
     /**
      * 上传视频
-     * ??????获取的这些信息是怎么来的，哪个表是参考/哪个文件是参考？
-     * upload和update有什么区别？？？？
      */
     @PostMapping//表示该方法将处理HTTP POST请求。
     public ApiResponse<Videos> uploadVideo(
@@ -91,7 +89,7 @@ public class VideoController {
     public ApiResponse<IPage<Videos>> getPagedVideos(
             @RequestParam int userId,//表示该参数将从请求的查询参数中获取，参数名为userId，类型为int。
             @RequestParam(defaultValue = "1") int page,//表示如果没有提供page参数，将默认使用值1。参数类型为int。
-            @RequestParam(defaultValue = "10") int pageSize) {
+            @RequestParam(defaultValue = "5") int pageSize) {
         /**
          * 调用videoService服务的getPagedVideos方法，传入页码page、每页大小pageSize和用户IDuserId，
          * 该方法负责根据这些参数获取分页的视频列表，并将结果返回。

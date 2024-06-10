@@ -33,7 +33,8 @@ public class VideoServiceImpl implements VideoService {
      * 上传新视频
      * @param videoDTO 包含视频详情的数据传输对象
      * @return 上传的视频详情
-     * Builder 模式通过链式方法调用来创建对象，提供了一个灵活且可读性强的对象构建方式。
+     * 注意
+     * 1.学习builder()方法
      */
     @Override
     public Videos uploadVideo(VideoDTO videoDTO) {
@@ -48,16 +49,16 @@ public class VideoServiceImpl implements VideoService {
 
         // 创建视频实体
         Videos video = Videos.builder()
-                .userId(videoDTO.getUserId())                // 设置用户ID
-                .title(videoDTO.getTitle())                  // 设置视频标题
-                .description(videoDTO.getDescription())      // 设置视频描述
-                .tags(videoDTO.getTags())                    // 设置视频标签
-                .videoUrl(videoUrl)                          // 设置视频URL
-                .thumbnailUrl(thumbnailUrl)                  // 设置缩略图URL
-                .status("public")                            // 设置视频状态（公开）
-                .createdAt(LocalDateTime.now())              // 设置视频创建时间
-                .updatedAt(LocalDateTime.now())              // 设置视频更新时间
-                .build();                                    // 构建视频实体
+                .userId(videoDTO.getUserId())
+                .title(videoDTO.getTitle())
+                .description(videoDTO.getDescription())
+                .tags(videoDTO.getTags())
+                .videoUrl(videoUrl)
+                .thumbnailUrl(thumbnailUrl)
+                .status("public")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
 
         videosMapper.insert(video);
         return video;
@@ -67,7 +68,6 @@ public class VideoServiceImpl implements VideoService {
      * 根据ID获取视频详情，
      * @param videoId 视频ID
      * @return 视频详情
-     * ？？？？？这个get以后干什么
      */
     @Override
     public Videos getVideoDetails(int videoId) {
@@ -79,44 +79,41 @@ public class VideoServiceImpl implements VideoService {
     }
 
     /**
-     * 更新现有视频
+     * 更新现有的视频
      * @param videoDTO 包含更新后视频详情的数据传输对象
      * @return 更新后的视频详情
-     * 接收一个包含视频更新信息的VideoDTO对象，
-     * 找到对应的视频记录，更新其信息，并将更新后的视频对象返回。
-     * 如果找不到对应的视频记录，将抛出异常。
      */
     @Override
     public Videos updateVideo(VideoDTO videoDTO) {
-        /**调用videosMapper的selectById方法，根据videoDTO中的视频ID查找现有的视频对象。
-         * 如果找到，就将其赋值给existingVideo变量。
-        */
+        // 从数据库中通过视频ID获取现有的视频信息
         Videos existingVideo = videosMapper.selectById(videoDTO.getVideoId());
-        //检查是否找到了视频对象。
+
+        // 如果视频不存在，抛出资源未找到异常
         if (existingVideo == null) {
             throw new ResourceNotFoundException("视频不存在");
         }
-        /**
-         * 创建一个新的Videos对象构建器
-         * 并将existingVideo的属性值复制到构建器中。
-         * 这样，updatedVideo变量将包含更新后的视频对象。
-         */
+
+        // 创建一个新的视频对象，使用传入的DTO更新必要的字段，并保留现有视频的其他字段
         Videos updatedVideo = Videos.builder()
-                .videoId(existingVideo.getVideoId())
-                .userId(existingVideo.getUserId())
-                .title(videoDTO.getTitle())
-                .description(videoDTO.getDescription())
-                .status(videoDTO.getStatus())
-                .thumbnailUrl(existingVideo.getThumbnailUrl())
-                .duration(existingVideo.getDuration())
-                .tags(existingVideo.getTags())
-                .createdAt(existingVideo.getCreatedAt())
-                .updatedAt(LocalDateTime.now())
+                .videoId(existingVideo.getVideoId())  // 保留现有视频ID
+                .userId(existingVideo.getUserId())    // 保留现有用户ID
+                .title(videoDTO.getTitle())           // 更新视频标题
+                .description(videoDTO.getDescription()) // 更新视频描述
+                .status(videoDTO.getStatus())         // 更新视频状态
+                .thumbnailUrl(existingVideo.getThumbnailUrl()) // 保留现有缩略图URL
+                .duration(existingVideo.getDuration()) // 保留现有视频时长
+                .tags(existingVideo.getTags())         // 保留现有视频标签
+                .createdAt(existingVideo.getCreatedAt()) // 保留视频创建时间
+                .updatedAt(LocalDateTime.now())         // 更新视频更新时间为当前时间
                 .build();
 
+        // 将更新后的视频对象保存到数据库中
         videosMapper.updateById(updatedVideo);
+
+        // 返回更新后的视频对象
         return updatedVideo;
     }
+
 
     /**
      * 根据ID删除视频
@@ -150,7 +147,6 @@ public class VideoServiceImpl implements VideoService {
      * 处理文件上传
      * @param file 要上传的Multipart文件
      * @return 上传文件的URL
-     * ？？？？这个和下面那个干啥的？
      */
     private String uploadFile(MultipartFile file) {
         // 实现文件上传逻辑并返回文件URL
