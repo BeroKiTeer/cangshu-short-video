@@ -71,6 +71,7 @@ class VideoControllerTest {
         System.out.println("pagedVideos = " + pagedVideos.getData());
         IPage<Videos> data = pagedVideos.getData();
         List<Videos> records = data.getRecords();
+        System.out.println("records = " + records.size());
         for (Videos record : records) {
             System.out.println("record = " + record);
         }
