@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @SpringBootTest
 class VideoControllerTest {
     @Resource
@@ -65,7 +67,12 @@ class VideoControllerTest {
 
     @Test
     void getPagedVideos() {
-        ApiResponse<IPage<Videos>> pagedVideos = videoController.getPagedVideos(1, 5, 5);
+        ApiResponse<IPage<Videos>> pagedVideos = videoController.getPagedVideos(1, 1, 5);
         System.out.println("pagedVideos = " + pagedVideos.getData());
+        IPage<Videos> data = pagedVideos.getData();
+        List<Videos> records = data.getRecords();
+        for (Videos record : records) {
+            System.out.println("record = " + record);
+        }
     }
 }
