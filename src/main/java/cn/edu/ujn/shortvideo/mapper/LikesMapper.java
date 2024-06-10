@@ -2,6 +2,10 @@ package cn.edu.ujn.shortvideo.mapper;
 
 import cn.edu.ujn.shortvideo.entities.dox.Likes;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
 * @author dell
@@ -11,12 +15,18 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface LikesMapper extends BaseMapper<Likes> {
 
-    Likes findByVideoIdAndUserId(Integer videoId, Integer userId);
 
-    Likes save(Likes like);
+    @Select("SELECT * FROM likes WHERE video_id = #{videoId} AND user_id = #{userId}")
+    Likes findByVideoIdAndUserId(@Param("videoId") Integer videoId, @Param("userId") Integer userId);
 
-    boolean existsById(Integer likeId);
+    @Insert("INSERT INTO likes (video_id, user_id, created_at) VALUES (#{like.videoId}, #{like.userId}, #{like.createdAt})")
+    int save(@Param("like") Likes like);
 
+    @Select("SELECT COUNT(*) > 0 FROM likes WHERE like_id = #{likeId}")
+    boolean existsById(@Param("likeId") Integer likeId);
+
+    @Delete("DELETE FROM likes WHERE like_id= #{likeId}")
+    int deleteById(@Param("likeId") Integer likeId);
 }
 
 
