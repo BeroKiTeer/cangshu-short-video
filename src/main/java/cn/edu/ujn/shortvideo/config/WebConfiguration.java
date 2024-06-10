@@ -55,7 +55,12 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+<<<<<<< test/videos
+        registry.addResourceHandler("/videos/**")
+                .addResourceLocations("classpath:/static/videos/");
+=======
         registry.addResourceHandler("/static/videos/**")
                 .addResourceLocations("classpath:/static/");
+>>>>>>> master
     }
 }
