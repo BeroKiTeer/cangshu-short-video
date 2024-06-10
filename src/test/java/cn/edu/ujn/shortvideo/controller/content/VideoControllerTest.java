@@ -24,8 +24,8 @@ class VideoControllerTest {
 
         ApiResponse<Videos> videosApiResponse = videoController.uploadVideo(
                 1,
-                "http://localhost:8080/videos/1.mp4",
-                "描述",
+                "http://localhost:8080/videos/TS.mp4",
+                "描述1111",
                 "tags",
                 null
         );
@@ -45,7 +45,7 @@ class VideoControllerTest {
         VideoDTO videoDTO = VideoDTO.builder()
                 .videoId(1)
                 .status("active")
-                .title("123")
+                .title("ffceshi")
                 .description("123description")
                 .tags("123tags")
                 .videoFile(null)
