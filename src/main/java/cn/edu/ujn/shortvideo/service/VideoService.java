@@ -5,6 +5,8 @@ import cn.edu.ujn.shortvideo.entities.dto.VideoDTO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import java.util.List;
+
 /**
  * VideoService接口定义用于处理视频操作的方法。
  * 该接口包括视频上传、获取视频详情、更新视频信息和删除视频等功能。
@@ -48,4 +50,11 @@ public interface VideoService {
      * @return 分页的视频列表
      */
     IPage<Videos> getPagedVideos(int currentPage, int pageSize, int userId);
+
+    /**
+     * 获取特定用户的视频分页列表（根据关键字搜索）
+     * @param keyword
+     * @return
+     */
+    List<Videos> search(String keyword);
 }

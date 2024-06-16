@@ -167,6 +167,11 @@ public class VideoServiceImpl implements VideoService {
         return videosMapper.selectPage(page, queryWrapper);
     }
 
+    @Override
+    public List<Videos> search(String keyword) {
+        return videosMapper.search(keyword);
+    }
+
     /**
      * 处理文件上传
      * @param file 要上传的Multipart文件

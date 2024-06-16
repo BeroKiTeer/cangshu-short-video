@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 视频管理
  * @author ff
@@ -97,5 +99,16 @@ public class VideoController {
         IPage<Videos> videoPage = videoService.getPagedVideos(page, pageSize, userId);
 
         return ApiResponse.success(videoPage);//返回一个成功的响应，其中包含分页的视频列表。
+    }
+
+    /**
+     * 新增搜索视频接口
+     * @param keyword
+     * @return
+     */
+    @GetMapping("/search")
+    public ApiResponse<List<Videos>> search(@RequestParam String keyword) {
+        List<Videos> videos = videoService.search(keyword);
+        return ApiResponse.success(videos);
     }
 }
