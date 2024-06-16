@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * * VideosMapper 接口，定义了视频相关的数据库操作方法
  *  包括插入视频、更新视频、删除视频、根据视频ID查询视频、根据用户ID查询视频列表、查询所有视频等方法
@@ -28,6 +30,16 @@ public interface VideosMapper extends BaseMapper<Videos> {
      */
     @Select("SELECT * FROM videos WHERE title LIKE CONCAT('%', #{title}, '%')")
     IPage<Videos> selectPagedVideos(Page<?> page, @Param("title") String title);
+
+    /**
+     * 这是一个MyBatis的查询注解，用于定义一个查询方法的SQL语句。
+     * @param keyword
+     * @return
+     */
+    @Select("""
+            SELECT * FROM videos WHERE title LIKE CONCAT('%', #{keyword}, '%')
+    """)
+    List<Videos> search(String keyword);
     /**
      * Page<?>是MyBatis-Plus提供的一个分页参数，用于处理分页查询。
      * @Param("title")注解用于指定参数的名称，该名称在SQL语句中使用。
